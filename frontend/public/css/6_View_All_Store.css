@@ -1,0 +1,229 @@
+/* 1. JUNO ADMIN (มุมซ้ายบน) */
+
+.header {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #000000;
+    font-family: Arial, sans-serif;
+}
+
+
+/* 2. ชื่อหน้าอยู่ตรงกลางด้านบน */
+
+.page-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 80px;
+    margin-bottom: 30px;
+}
+
+
+/* 3. เมนูมุมขวาบน */
+
+.top-nav {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.top-nav a {
+    color: #000000;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 15px;
+}
+
+.top-nav .logout {
+    background-color: #D0AAD1;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+}
+
+
+/* 4. แสดง Path Navigation (Breadcrumb) */
+
+.breadcrumb {
+    margin-top: 70px;
+    margin-left: 20px;
+    font-size: 14px;
+    color: #666;
+    font-family: Arial, sans-serif;
+}
+
+.breadcrumb a {
+    margin-right: 5px;
+    text-decoration: none;
+    color: #666;
+}
+
+.breadcrumb a::after {
+    content: "/";
+    margin-left: 5px;
+}
+
+.breadcrumb span::after {
+    content: "";
+}
+
+.breadcrumb a:last-child::after {
+    content: "";
+}
+
+
+/* หัวตาราง */
+
+
+/* แก้ไขการจัดตำแหน่งให้ข้อมูลอยู่กลางทั้งแนวนอนและแนวตั้ง */
+
+.row-item {
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr 1.5fr 2fr 1fr 1fr;
+    width: 90%;
+    max-width: 1000px;
+    margin: 10px auto;
+    padding: 15px 20px 15px 20px;
+    /* เพิ่ม padding ทั้ง 4 ด้าน */
+    font-family: Arial, sans-serif;
+    background-color: #D0AAD1;
+    color: white;
+    border-radius: 12px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    align-items: center;
+    /* จัดให้อยู่กลางในแนวตั้ง */
+    justify-items: center;
+    /* จัดให้อยู่กลางในแนวนอน */
+    position: relative;
+}
+
+
+/* กำหนดให้หัวตารางจัดกลางทั้งแนวนอนและแนวตั้ง */
+
+.table-header {
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr 1.5fr 2fr 1fr 1fr;
+    font-weight: bold;
+    width: 90%;
+    max-width: 1000px;
+    margin: 20px auto 10px auto;
+    font-family: Arial, sans-serif;
+    color: #333;
+    padding-left: 10px;
+    justify-items: center;
+    /* จัดให้อยู่กลางในแนวนอน */
+    align-items: center;
+    /* จัดให้อยู่กลางในแนวตั้ง */
+}
+
+
+/* วงกลมสถานะ */
+
+.status-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.filter-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.filter-item {
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+}
+
+.filter-item label {
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+.filter-item input[type="text"] {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    min-width: 220px;
+    transition: border-color 0.3s ease;
+}
+
+.filter-item input[type="date"],
+.filter-item select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+}
+
+.filter-item input[type="date"]:focus,
+.filter-item select:focus {
+    border-color: #D0AAD1;
+    outline: none;
+}
+
+.action-button {
+    background-color: white;
+    text-decoration: none;
+    /* สีม่วง */
+    color: #D0AAD1;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    transition: background-color 0.2s;
+}
+
+.status-dot.approved {
+    background-color: #4CAF50;
+    /* สีเขียวสำหรับ Approved */
+}
+
+.status-dot.rejected {
+    background-color: #FF6347;
+    /* สีแดงสำหรับ Rejected */
+}
+
+.page-content {
+    display: flex;
+    flex-direction: column;
+    /* แนวตั้ง */
+    align-items: center;
+    margin-top: 30px;
+}
+
+.store-detail-box {
+    background-color: #E2DCE2;
+    border-radius: 12px;
+    padding: 20px 30px;
+    width: 80%;
+    max-width: 800px;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+}
+
+.store-detail-box p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #333;
+}

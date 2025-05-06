@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="/css/2_choice_page.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div class="header">JUNO ADMIN</div>
+
+    <div class="top-nav">
+        <a href="/admin-menu">Home</a>
+        <a href="/read-only-analyst">Read-Only Analyst</a>
+        <a href="/data-management">Data Management</a>
+        <a class="logout" href="/login">Logout</a>
+    </div>
+
+    <div class="breadcrumb">
+        <a href="/admin-menu">Home</a>
+        <a href="/data-management">Data Management</a>
+        <a>Vendor Manager</a>
+    </div>
+
+
+    <div class="page-content">
+        <h1 class="page-title">Vendor Manager</h1>
+
+        <div class="box-container">
+            <a class="box-link" href="/account-pending-verification">
+                Account Pending Verification
+                <span class="badge"><%= accountPendingCount %></span>
+            </a>
+            <a class="box-link" href="/store-rating-low">
+                Store Rating Low
+                <span class="badge"><%= storeRatingLowCount %></span>
+            </a>
+        </div>
+    </div>
+</body>
+
+</html>

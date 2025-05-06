@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="/css/3_Checking.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <title>All Stores</title>
+</head>
+
+<body>
+    <div class="header">JUNO ADMIN</div>
+
+    <div class="top-nav">
+        <a href="/admin-menu">Home</a>
+        <a href="/read-only-analyst">Read-Only Analyst</a>
+        <a href="/data-management">Data Management</a>
+        <a class="logout" href="/logout">Logout</a>
+    </div>
+
+    <div class="breadcrumb">
+        <a href="/admin-menu">Home</a>
+        <a href="/read-only-analyst">Read-Only Analyst</a>
+        <span>All Stores</span>
+    </div>
+
+    <h1 class="page-title">All Stores</h1>
+
+    <!-- Filter: Date Range -->
+    <form id="filter-form" class="filter-container" onsubmit="return false;">
+        <div class="filter-item">
+            <label for="date-range">Date Range</label>
+            <input type="text" id="date-range" placeholder="Select date range">
+        </div>
+    </form>
+
+    <!-- Table Header -->
+    <div class="table-header">
+        <div>Citizen ID</div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div>Date</div>
+        <div></div>
+    </div>
+
+    <!-- Store Rows from DB -->
+    <% stores.forEach(store => { %>
+        <div class="box-link row-item" data-date="<%= store.date %>">
+            <div>
+                <%= store.citizenId %>
+            </div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div>
+                <%= store.date %>
+            </div>
+            <div><a class="view-button" href="4-2-1_View_All_Store?id=<%= store.citizenId %>">View</a></div>
+        </div>
+        <% }) %>
+
+            <script>
+                let selectedStart = null;
+                let selectedEnd = null;
+
+                flatpickr("#date-range", {
+                    mode: "range",
+                    dateFormat: "Y-m-d",
+                    onChange: function(selectedDates) {
+                        selectedStart = selectedDates[0];
+                        selectedEnd = selectedDates[1] || selectedDates[0];
+                        filterTable();
+                    }
+                });
+
+                function filterTable() {
+                    const rows = document.querySelectorAll(".row-item");
+
+                    rows.forEach(row => {
+                        const rowDate = new Date(row.dataset.date);
+                        const matchDate =
+                            (!selectedStart || !selectedEnd) ||
+                            (rowDate >= selectedStart && rowDate <= selectedEnd);
+
+                        row.style.display = matchDate ? "" : "none";
+                    });
+                }
+            </script>
+</body>
+
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Store Rating Low</title>
+    <link rel="stylesheet" href="/css/3_Checking.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+</head>
+
+<body>
+    <div class="header">JUNO ADMIN</div>
+
+    <div class="top-nav">
+        <a href="/admin-menu">Home</a>
+        <a href="/read-only-analyst">Read-Only Analyst</a>
+        <a href="/data-management">Data Management</a>
+        <a class="logout" href="/logout">Logout</a>
+    </div>
+
+    <div class="breadcrumb">
+        <a href="/admin-menu">Home</a>
+        <a href="/data-management">Data Management</a>
+        <a href="/vendor-manager">Vendor Manager</a>
+        <span>Store Rating Low</span>
+    </div>
+
+    <h1 class="page-title">Store Rating Low</h1>
+
+    <form id="filter-form" class="filter-form" onsubmit="return false;">
+        <div class="filter-item">
+            <label for="date-range">Date Range</label>
+            <input type="text" id="date-range" placeholder="Select date range" />
+        </div>
+        <div class="filter-item">
+            <label for="status-filter">Status</label>
+            <select id="status-filter">
+        <option value="">Select Status</option>
+        <option value="not yet warned">Not Yet Warned</option>
+        <option value="pending">Pending</option>
+        <option value="failed">Failed</option>
+      </select>
+        </div>
+    </form>
+
+    <!-- Table Header -->
+    <div class="table-header">
+        <div>Citizen ID</div>
+        <div>Rating Before</div>
+        <div>Date</div>
+        <div>Rating After</div>
+        <div>Status</div>
+        <div>Action</div>
+    </div>
+
+    <% const today = new Date(); %>
+        <% stores.forEach(store => { 
+    const storeDate = new Date(store.date);
+    const diffDays = Math.floor((today - storeDate) / (1000 * 60 * 60 * 24));
+  %>
+            <div class="box-link row-item" data-status="<%= store.status %>" data-date="<%= store.date %>">
+                <div>
+                    <%= store.id %>
+                </div>
+                <div>
+                    <%= store.ratingBefore %>
+                </div>
+                <div>
+                    <%= store.date %>
+                </div>
+
+                <!-- Rating After -->
+                <div>
+                    <% if (store.status !== 'not yet warned') { %>
+                        <% if (store.ratingAfter > store.ratingBefore) { %>
+                            <span class="arrow-up green">↑</span>
+                            <% } else if (store.ratingAfter < store.ratingBefore) { %>
+                                <span class="arrow-down red">↓</span>
+                                <% } %>
+                                    <span class="rating-after"><%= store.ratingAfter %></span>
+                                    <% } %>
+                </div>
+
+                <!-- Status -->
+                <div class="status-label">
+                    <% if (store.status === 'not yet warned') { %>
+                        <span class="status-dot not-yet-warned"></span> Not Yet Warned
+                        <% } else if (store.status === 'pending') { %>
+                            <span class="status-dot pending"></span> Pending
+                            <% } else if (store.status === 'failed') { %>
+                                <span class="status-dot failed"></span> Banned
+                                <% } %>
+                </div>
+
+                <!-- Action -->
+                <div>
+                    <% if (store.status === 'not yet warned') { %>
+                        <form method="POST" action="/warn">
+                            <input type="hidden" name="storeId" value="<%= store.id %>">
+                            <button type="submit" class="action-button warn">Warn</button>
+                        </form>
+                        <% } else if (store.status === 'pending' && diffDays >= 90 && store.ratingAfter < 2.5 && store.ratingAfter > store.ratingBefore) { %>
+                            <form method="POST" action="/warn">
+                                <input type="hidden" name="storeId" value="<%= store.id %>">
+                                <button type="submit" class="action-button warn">Warn</button>
+                            </form>
+                            <% } else if (store.status === 'failed') { %>
+                                <form method="POST" action="/ban">
+                                    <input type="hidden" name="storeId" value="<%= store.id %>">
+                                    <button type="submit" class="action-button ban">Banned</button>
+                                </form>
+                                <% } %>
+                </div>
+            </div>
+            <% }); %>
+
+                <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+                <script>
+                    // Setup Flatpickr
+                    let selectedStart = null;
+                    let selectedEnd = null;
+
+                    flatpickr("#date-range", {
+                        mode: "range",
+                        dateFormat: "Y-m-d",
+                        onChange: function(selectedDates) {
+                            selectedStart = selectedDates[0];
+                            selectedEnd = selectedDates[1];
+                            filterRows();
+                        }
+                    });
+
+                    document.getElementById("status-filter").addEventListener("change", filterRows);
+
+                    function filterRows() {
+                        const statusValue = document.getElementById("status-filter").value;
+                        const rows = document.querySelectorAll(".row-item");
+
+                        rows.forEach(row => {
+                            const rowStatus = row.dataset.status;
+                            const rowDateStr = row.dataset.date;
+                            const rowDate = new Date(rowDateStr);
+
+                            const matchStatus = !statusValue || rowStatus === statusValue;
+                            const matchDate =
+                                (!selectedStart || !selectedEnd) ||
+                                (rowDate >= selectedStart && rowDate <= selectedEnd);
+
+                            if (matchStatus && matchDate) {
+                                row.style.display = "";
+                            } else {
+                                row.style.display = "none";
+                            }
+                        });
+                    }
+                </script>
+
+</body>
+
+</html>

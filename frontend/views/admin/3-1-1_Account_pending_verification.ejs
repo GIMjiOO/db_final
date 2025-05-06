@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Account pending verification</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/css/3_Checking.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div class="header">JUNO ADMIN</div>
+    <div class="top-nav">
+        <a href="/admin-menu">Home</a>
+        <a href="/read-only-analyst">Read-Only Analyst</a>
+        <a href="/data-management">Data Management</a>
+        <a class="logout" href="/login">Logout</a>
+    </div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="/admin-menu">Home</a>
+        <a href="/data-management">Data Management Menu</a>
+        <a href="/vendor-manager">Vendor Manager</a>
+        <span>Account pending verification</span>
+    </div>
+
+    <!-- Page title -->
+    <h1 class="page-title">Account pending verification</h1>
+
+    <!-- Date range input -->
+    <form id="filter-form" method="GET" action="/pending-verification">
+        <div class="filter-item">
+            <label for="date-range">Date Range</label>
+            <input type="text" id="date-range" name="date-range" placeholder="Select date range">
+            <input type="hidden" name="startDate" id="startDate">
+            <input type="hidden" name="endDate" id="endDate">
+            <!-- ไม่มีปุ่ม -->
+        </div>
+    </form>
+
+
+    <!-- Table header -->
+    <div class="table-header">
+        <div>Citizen ID</div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div>Date</div>
+        <div>Action</div>
+    </div>
+
+    <!-- Table data -->
+    <% if (accounts.length > 0) { %>
+        <% accounts.forEach(function(account) { %>
+            <div class="box-link row-item" data-date="<%= new Date(account.date).toISOString().split('T')[0] %>">
+                <div>
+                    <%= account.citizenId %>
+                </div>
+                <div>
+                    <%= account.date %>
+                </div>
+                <div><a class="view-button" href="/verify-account/<%= account.citizenId %>">Verify</a></div>
+            </div>
+
+            <% }); %>
+                <% } else { %>
+                    <div style="text-align:center; margin-top:20px; font-family:Arial, sans-serif;">
+                        No records found for the selected date.
+                    </div>
+                    <% } %>
+
+                        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function() {
+                                flatpickr("#date-range", {
+                                    mode: "range",
+                                    dateFormat: "Y-m-d",
+                                    onChange: function(selectedDates) {
+                                        const rows = document.querySelectorAll(".box-link.row-item");
+
+                                        if (selectedDates.length === 0) {
+                                            // ถ้าไม่เลือกอะไรเลย → แสดงทั้งหมด
+                                            rows.forEach(row => row.style.display = "");
+                                            return;
+                                        }
+
+                                        const start = selectedDates[0];
+                                        const end = selectedDates[1] || selectedDates[0];
+
+                                        rows.forEach(row => {
+                                            const dateStr = row.dataset.date;
+                                            if (!dateStr) return;
+
+                                            const rowDate = new Date(dateStr);
+                                            if (rowDate >= start && rowDate <= end) {
+                                                row.style.display = "";
+                                            } else {
+                                                row.style.display = "none";
+                                            }
+                                        });
+                                    }
+                                });
+                            });
+                        </script>
+
+</body>
+
+</html>

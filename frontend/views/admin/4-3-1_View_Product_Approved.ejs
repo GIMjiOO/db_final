@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="/css/4_View.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Approval</title>
+</head>
+
+<body>
+    <div class="header">JUNO ADMIN</div>
+
+    <div class="top-nav">
+        <a href="/admin-menu">Home</a>
+        <a href="/read-only-analyst">Read-Only Analyst</a>
+        <a href="/data-management">Data Management</a>
+        <a class="logout" href="/logout">Logout</a>
+    </div>
+
+    <div class="breadcrumb">
+        <a href="/admin-menu">Home</a>
+        <a href="/read-only-analyst">Read-Only Analyst</a>
+
+        <% if (sourcePage === "fromStore") { %>
+            <a href="/all-stores">All Stores</a>
+            <a href="/product-approved">Product Approved</a>
+            <% } else if (sourcePage === "fromProductApproved") { %>
+                <a href="/product-approved">Product Approved</a>
+                <% } %>
+
+                    <span>View</span>
+    </div>
+
+    <div class="page-content">
+        <h1 class="page-title">Product Approval</h1>
+        <div class="vendor-info">
+            <p><strong>Store name:</strong>
+                <%= product.storeName %>
+            </p>
+            <p><strong>Product name:</strong>
+                <%= product.productName %>
+            </p>
+            <p><strong>Product picture:</strong></p>
+            <% if (product.imageUrl) { %>
+                <img src="<%= product.imageUrl %>" alt="Product Image" style="max-width: 300px; border-radius: 10px;">
+                <% } else { %>
+                    <p>No image available</p>
+                    <% } %>
+
+                        <p><strong>Category:</strong>
+                            <%= product.category %>
+                        </p>
+                        <p><strong>Price:</strong>
+                            <%= product.price.toLocaleString() %>
+                        </p>
+                        <p><strong>Quantity:</strong>
+                            <%= product.quantity %>
+                        </p>
+                        <p><strong>Description:</strong>
+                            <%= product.description %>
+                        </p>
+        </div>
+    </div>
+</body>
+
+</html>

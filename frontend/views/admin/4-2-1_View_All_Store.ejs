@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="/css/6_View_All_Store.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <title>_View_All_Store</title>
+</head>
+
+<body>
+    <div class="header">JUNO ADMIN</div>
+
+    <div class="top-nav">
+        <a href="/admin-menu">Home</a>
+        <a href="/read-only-analyst">Read-Only Analyst</a>
+        <a href="/data-management">Data Management</a>
+        <a class="logout" href="/logout">Logout</a>
+    </div>
+
+    <div class="breadcrumb">
+        <a href="/admin-menu">Home</a>
+        <a href="/read-only-analyst">Read-Only Analyst</a>
+        <a href="/all-stores">All Stores</a>
+        <span>View</span>
+    </div>
+
+    <div class="page-content">
+        <h1 class="page-title">Store Detail</h1>
+
+        <div class="store-detail-box">
+            <p><strong>Citizen ID :</strong>
+                <%= store.citizenId %>
+            </p>
+            <p><strong>Vendor type :</strong>
+                <%= store.vendorType %>
+            </p>
+            <p><strong>Store name :</strong>
+                <%= store.storeName %>
+            </p>
+            <p><strong>Owner Name :</strong>
+                <%= store.ownerFirstName %>
+                    <%= store.ownerLastName %>
+            </p>
+            <p><strong>Identification Number :</strong>
+                <%= store.identificationNumber %>
+            </p>
+            <p><strong>Date of birth :</strong>
+                <%= store.birthDate %>
+            </p>
+            <p><strong>Phone number :</strong>
+                <%= store.phoneNumber %>
+            </p>
+            <p><strong>Email :</strong>
+                <%= store.email %>
+            </p>
+            <p><strong>Address :</strong>
+                <%= store.address %>
+            </p>
+            <p><strong>Bank :</strong>
+                <%= store.bank %>
+            </p>
+            <p><strong>Account Number :</strong>
+                <%= store.accountNumber %>
+            </p>
+            <p><strong>Store Rating :</strong>
+                <%= store.rating %>
+            </p>
+        </div>
+    </div>
+
+
+    <!-- Product Section -->
+    <div class="page-content">
+        <h2 class="section-title">Product</h2>
+
+        <!-- Filter Date Range -->
+        <div class="filter-container">
+            <div class="filter-item">
+                <label for="date-range">Date Range</label>
+                <input type="text" id="date-range" name="date-range" placeholder="Select date range">
+                <input type="hidden" id="startDate" name="startDate">
+                <input type="hidden" id="endDate" name="endDate">
+            </div>
+        </div>
+
+        <!-- Product Table -->
+        <div class="table">
+            <div class="table-header">
+                <div>Product ID</div>
+                <div>Product Name</div>
+                <div>Category</div>
+                <div>Stock</div>
+                <div>Price</div>
+                <div>Status</div>
+                <div>Action</div>
+            </div>
+
+            <% products.forEach(product => { %>
+                <div class="row-item">
+                    <div>
+                        <%= product.productId %>
+                    </div>
+                    <div>
+                        <%= product.productName %>
+                    </div>
+                    <div>
+                        <%= product.category %>
+                    </div>
+                    <div>
+                        <%= product.stock %>
+                    </div>
+                    <div>
+                        <%= product.price %>
+                    </div>
+                    <div>
+                        <%= product.status %>
+                    </div>
+                    <div>
+                        <a href="/admin/view-product/<%= product.productId %>" class="action-button">View</a>
+                    </div>
+                </div>
+                <% }); %>
+        </div>
+    </div>
+
+    <!-- Flatpickr Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const dateInput = flatpickr("#date-range", {
+                mode: "range",
+                dateFormat: "Y-m-d",
+                onChange: function(selectedDates) {
+                    const start = selectedDates[0];
+                    const end = selectedDates[1] || selectedDates[0];
+
+                    if (!start) return;
+
+                    const startDate = new Date(start.setHours(0, 0, 0, 0));
+                    const endDate = new Date(end.setHours(23, 59, 59, 999));
+
+                    // Loop through all rows
+                    document.querySelectorAll(".row-item").forEach(row => {
+                        const dateStr = row.getAttribute("data-date");
+                        const rowDate = new Date(dateStr);
+
+                        if (rowDate >= startDate && rowDate <= endDate) {
+                            row.style.display = "flex"; // หรือ block แล้วแต่ layout
+                        } else {
+                            row.style.display = "none";
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>

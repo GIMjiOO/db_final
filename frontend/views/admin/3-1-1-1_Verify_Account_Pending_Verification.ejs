@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="/css/4_View.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Pending Verification</title>
+</head>
+
+<body>
+    <div class="header">JUNO ADMIN</div>
+
+    <div class="top-nav">
+        <a href="/admin-menu">Home</a>
+        <a href="/read-only-analyst">Read-Only Analyst</a>
+        <a href="/data-management">Data Management</a>
+        <a class="logout" href="/logout">Logout</a>
+    </div>
+
+    <div class="breadcrumb">
+        <a href="/admin-menu">Home</a>
+        <a href="/data-management">Data Management Menu</a>
+        <a href="/vendor-manager">Vendor Manager</a>
+        <a href="/pending-verification">Account Pending Verification</a>
+        <span>Verify</span>
+    </div>
+
+    <div class="page-content">
+        <h1 class="page-title">Account Pending Verification</h1>
+
+        <div class="vendor-info">
+            <p><strong>Vendor type:</strong>
+                <%= account.vendorType %>
+            </p>
+            <p><strong>Store name:</strong>
+                <%= account.storeName %>
+            </p>
+
+            <% if (account.imageUrl) { %>
+                <img src="<%= account.imageUrl %>" alt="Vendor Image" style="max-width: 300px; margin: 20px 0;">
+                <% } else { %>
+                    <p><em>No image available</em></p>
+                    <% } %>
+
+                        <p><strong>Name:</strong>
+                            <%= account.name %>
+                        </p>
+                        <p><strong>Identification Number:</strong>
+                            <%= account.citizenId %>
+                        </p>
+                        <p><strong>Date of birth:</strong>
+                            <%= account.birthDate %>
+                        </p>
+                        <p><strong>Phone number:</strong>
+                            <%= account.phone %>
+                        </p>
+                        <p><strong>Email:</strong>
+                            <%= account.email %>
+                        </p>
+                        <p><strong>Address:</strong>
+                            <%= account.address %>
+                        </p>
+                        <p><strong>Bank:</strong>
+                            <%= account.bank %>
+                        </p>
+                        <p><strong>Account Number:</strong>
+                            <%= account.bankAccount %>
+                        </p>
+        </div>
+
+        <div class="action-buttons">
+            <form method="POST" action="/verify-account/<%= account.citizenId %>/deny" style="display: inline;">
+                <button class="not-allow" type="submit">Not Allow</button>
+            </form>
+            <form method="POST" action="/verify-account/<%= account.citizenId %>/allow" style="display: inline;">
+                <button class="allow" type="submit">Allow</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,153 @@
+/* 1. JUNO ADMIN (มุมซ้ายบน) */
+
+.header {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #000000;
+    font-family: Arial, sans-serif;
+}
+
+
+/* 2. ชื่อหน้าอยู่ตรงกลางด้านบน */
+
+.page-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 80px;
+    margin-bottom: 30px;
+}
+
+
+/* 3. กล่องลิงก์แนวตั้งอยู่ตรงกลาง */
+
+.page-content {
+    display: flex;
+    flex-direction: column;
+    /* แนวตั้ง */
+    align-items: center;
+    margin-top: 30px;
+}
+
+
+/* 4. แสดง Path Navigation (Breadcrumb) */
+
+.breadcrumb {
+    margin-top: 70px;
+    margin-left: 20px;
+    font-size: 14px;
+    color: #666;
+    font-family: Arial, sans-serif;
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.breadcrumb a,
+.breadcrumb span {
+    color: #666;
+    text-decoration: none;
+    position: relative;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+
+/* ใส่เครื่องหมาย / หลังทุกตัว ยกเว้นตัวสุดท้าย */
+
+.breadcrumb a::after,
+.breadcrumb span::after {
+    content: " /";
+    color: #999;
+    margin-left: 5px;
+}
+
+.breadcrumb span:last-child::after,
+.breadcrumb a:last-child::after {
+    content: "";
+}
+
+
+/* 5. กล่องข้อมูล Vendor */
+
+.vendor-info p {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.vendor-info p strong {
+    color: #333;
+}
+
+
+/* 6. เมนูมุมขวาบน */
+
+.top-nav {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.top-nav a {
+    color: #000000;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 15px;
+}
+
+
+/* 7. Logout เป็นกล่องสีม่วง */
+
+.top-nav .logout {
+    background-color: #D0AAD1;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+}
+
+
+/* 8. ปุ่ม Action */
+
+.action-buttons {
+    margin-top: 30px;
+    display: flex;
+    gap: 20px;
+}
+
+.action-buttons a,
+.action-buttons button {
+    padding: 12px 28px;
+    text-decoration: none;
+    color: white;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.not-allow {
+    background-color: #dc3545;
+}
+
+.not-allow:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+}
+
+.allow {
+    background-color: #28a745;
+}
+
+.allow:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}

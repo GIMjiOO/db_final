@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="/css/5_Dashboard.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+
+<body>
+    <div class="header">JUNO ADMIN</div>
+
+    <div class="top-nav">
+        <a href="/admin-menu">Home</a>
+        <a href="/read-only-analyst">Read-Only Analyst</a>
+        <a href="/data-management">Data Management</a>
+        <a class="logout" href="/logout">Logout</a>
+    </div>
+
+    <div class="breadcrumb">
+        <a href="/admin-menu">Home</a>
+        <a href="/read-only-analyst">Read-Only Analyst</a>
+        <span>Dashboard</span>
+    </div>
+
+    <h1 class="page-title">Dashboard</h1>
+
+    <div class="filter-container">
+        <div class="filter-item">
+            <label for="predefined-range">Select Date Range</label>
+            <select id="predefined-range" name="predefined-range">
+                <option value="thisweek" selected>This Week</option>
+                <option value="last7">Last 7 Days</option>
+                <option value="last30">Lastmonthn</option>
+                <option value="last90">Last 3 Months</option>
+                <option value="last6months">Last 6 Months</option>
+                <option value="lastyear">Last Year</option>
+                <option value="thismonth">This Month</option>
+                <option value="thisyear">This Year</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="dashboard-grid">
+        <div class="card normal" data-type="totalusers">
+            <h3>Total Users</h3>
+            <p>
+                Total Account:
+                <%= totalAccounts %><br> Total Vendors:
+                    <%= totalVendors %>
+            </p>
+        </div>
+
+        <div class="card wide chart-container" data-type="newaccounts">
+            <div class="chart-title">New Accounts</div>
+            <canvas id="newAccountsChart"></canvas>
+        </div>
+
+        <div class="card wide chart-container" data-type="totalsales">
+            <div class="chart-title">Total Sales</div>
+            <canvas id="totalSalesChart"></canvas>
+        </div>
+
+        <div class="card wide chart-container" data-type="categorysales">
+            <div class="chart-title">Selling Product per Category</div>
+            <canvas id="categoryPieChart"></canvas>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const rangeSelect = document.getElementById('predefined-range');
+
+        function renderCharts(range) {
+            fetch(`/dashboard/filter?range=${range}`)
+                .then(res => res.json())
+                .then(data => {
+                    // Total Users
+                    document.querySelector('[data-type="totalusers"] p').innerHTML = `
+                        Total Account: ${data.totalAccounts}<br>
+                        Total Vendors: ${data.totalVendors}
+                    `;
+
+                    const isLineChart = ["last30", "lastyear", "thismonth", "thisyear"].includes(range);
+
+                    // === New Accounts Chart ===
+                    const newChartCtx = document.getElementById('newAccountsChart').getContext('2d');
+                    if (window.newAccountsChartInstance) window.newAccountsChartInstance.destroy();
+                    window.newAccountsChartInstance = new Chart(newChartCtx, {
+                        type: isLineChart ? 'line' : 'bar',
+                        data: {
+                            labels: data.newAccountChart.labels,
+                            datasets: [{
+                                label: 'Customer',
+                                data: data.newAccountChart.customer,
+                                backgroundColor: '#FFFFAA',
+                                borderColor: '#FFFFAA',
+                                fill: !isLineChart,
+                                tension: 0.3
+                            }, {
+                                label: 'Vendor',
+                                data: data.newAccountChart.vendor,
+                                backgroundColor: '#F4C09D',
+                                borderColor: '#F4C09D',
+                                fill: !isLineChart,
+                                tension: 0.3
+                            }]
+                        }
+                    });
+
+                    // === Total Sales Chart ===
+                    const salesChartCtx = document.getElementById('totalSalesChart').getContext('2d');
+                    if (window.totalSalesChartInstance) window.totalSalesChartInstance.destroy();
+                    window.totalSalesChartInstance = new Chart(salesChartCtx, {
+                        type: isLineChart ? 'line' : 'bar',
+                        data: {
+                            labels: data.totalSalesChart.labels,
+                            datasets: [{
+                                label: 'Total Sales',
+                                data: data.totalSalesChart.values,
+                                backgroundColor: '#FFFFAA',
+                                borderColor: '#FFFFAA',
+                                fill: !isLineChart,
+                                tension: 0.3
+                            }]
+                        }
+                    });
+
+                    // === Category Pie Chart ===
+                    const pieCtx = document.getElementById('categoryPieChart').getContext('2d');
+                    if (window.categoryPieChartInstance) window.categoryPieChartInstance.destroy();
+                    window.categoryPieChartInstance = new Chart(pieCtx, {
+                        type: 'pie',
+                        data: {
+                            labels: data.categoryChart.labels,
+                            datasets: [{
+                                data: data.categoryChart.values,
+                                backgroundColor: [
+                                    '#FFD3B5', '#EFB2EF', '#A1C6EA', '#A0D995', '#FFAAAF', '#E0C3FC', '#FFF5BA'
+                                ]
+                            }]
+                        }
+                    });
+                });
+        }
+
+        rangeSelect.addEventListener('change', () => {
+            renderCharts(rangeSelect.value);
+        });
+
+        // Load default chart on initial page load
+        renderCharts('thisweek');
+    </script>
+</body>
+
+</html>

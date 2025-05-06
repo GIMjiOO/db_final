@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="/css/3_Checking.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <title>Store Rating History</title>
+</head>
+
+<body>
+    <div class="header">JUNO ADMIN</div>
+
+    <div class="top-nav">
+        <a href="/admin-menu">Home</a>
+        <a href="/read-only-analyst">Read-Only Analyst</a>
+        <a href="/data-management">Data Management</a>
+        <a class="logout" href="/logout">Logout</a>
+    </div>
+
+    <div class="breadcrumb">
+        <a href="/admin-menu">Home</a>
+        <a href="/read-only-analyst">Read-Only Analyst</a>
+        <span>Store Rating History</span>
+    </div>
+
+    <h1 class="page-title">Store Rating History</h1>
+
+    <!-- Filter Dropdown -->
+    <form class="filter-container" onsubmit="return false;">
+        <div class="filter-item">
+            <label for="date-range">Date Range</label>
+            <input type="text" id="date-range" placeholder="Select date range">
+        </div>
+        <div class="filter-item">
+            <label for="status-filter">Status</label>
+            <select id="status-filter">
+                <option value="">All</option>
+                <option value="passed">Passed</option>
+                <option value="banned">Banned</option>
+            </select>
+        </div>
+    </form>
+
+    <!-- หัวตาราง -->
+    <div class="table-header">
+        <div>Citizen ID</div>
+        <div>Rating Before</div>
+        <div>Date</div>
+        <div>Rating After</div>
+        <div></div>
+        <div>Status</div>
+    </div>
+
+    <!-- ข้อมูลจาก DB -->
+    <% ratingList.forEach(item => { %>
+        <div class="box-link row-item">
+            <div>
+                <%= item.storeId %>
+            </div>
+            <div>
+                <%= item.ratingBefore %>
+            </div>
+            <div>
+                <%= item.dateFormatted %>
+            </div>
+            <div>
+                <% if (item.ratingAfter > item.ratingBefore) { %>
+                    <span class="arrow-up green">↑</span>
+                    <% } else if (item.ratingAfter < item.ratingBefore) { %>
+                        <span class="arrow-down red">↓</span>
+                        <% } %>
+                            <span class="rating-after"><%= item.ratingAfter %></span>
+            </div>
+            <div></div>
+            <div><span class="status-dot <%= item.status.toLowerCase() %>"></span>
+                <%= item.status %>
+            </div>
+        </div>
+        <% }) %>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    const rows = Array.from(document.querySelectorAll(".row-item"));
+                    const statusFilter = document.getElementById("status-filter");
+                    const dateRangeInput = document.getElementById("date-range");
+
+                    let startDate = null;
+                    let endDate = null;
+
+                    flatpickr(dateRangeInput, {
+                        mode: "range",
+                        dateFormat: "Y-m-d",
+                        onChange: function(selectedDates) {
+                            startDate = selectedDates[0];
+                            endDate = selectedDates[1] || selectedDates[0];
+                            filterTable();
+                        }
+                    });
+
+                    statusFilter.addEventListener("change", filterTable);
+
+                    function filterTable() {
+                        rows.forEach(row => {
+                            const statusText = row.querySelector(".status-dot").classList[1]; // "passed" or "banned"
+                            const dateText = row.children[2].textContent.trim(); // "dd/mm/yyyy"
+                            let rowDate = new Date(dateText.split("/").reverse().join("-"));
+
+                            const statusMatch = !statusFilter.value || statusText === statusFilter.value;
+
+                            let dateMatch = true;
+                            if (startDate && endDate) {
+                                dateMatch = rowDate >= startDate && rowDate <= endDate;
+                            }
+
+                            row.style.display = (statusMatch && dateMatch) ? "grid" : "none";
+                        });
+                    }
+                });
+            </script>
+</body>
+
+</html>

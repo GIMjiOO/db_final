@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="/css/3_Checking.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <title>Product Approved</title>
+</head>
+
+<body>
+    <div class="header">JUNO ADMIN</div>
+
+    <div class="top-nav">
+        <a href="/admin-menu">Home</a>
+        <a href="/read-only-analyst">Read-Only Analyst</a>
+        <a href="/data-management">Data Management</a>
+        <a class="logout" href="/logout">Logout</a>
+    </div>
+
+    <div class="breadcrumb">
+        <a href="/admin-menu">Home</a>
+        <a href="/read-only-analyst">Read-Only Analyst</a>
+        <span>Product Approved</span>
+    </div>
+
+    <h1 class="page-title">Product Approved</h1>
+
+    <form id="filterForm" class="filter-container" onsubmit="return false;">
+        <div class="filter-item">
+            <label for="date-range">Date Range</label>
+            <input type="text" id="date-range" placeholder="Select date range">
+        </div>
+        <div class="filter-item">
+            <label for="status-filter">Status</label>
+            <select id="status-filter">
+            <option value="">All</option>
+            <option value="approved">Approved</option>
+            <option value="rejected">Rejected</option>
+        </select>
+        </div>
+        <div class="filter-item">
+            <label for="category-filter">Category</label>
+            <select id="category-filter">
+            <option value="">All</option>
+            <option value="fashion">Fashion & Clothing</option>
+            <option value="electronics">Electronics & Appliances</option>
+            <option value="beauty">Health & Beauty</option>
+            <option value="home">Home & Living</option>
+            <option value="food">Food & Beverages</option>
+            <option value="baby">Mom & Baby</option>
+            <option value="gadgets">Electronics & Gadgets</option>
+            <option value="other">Other</option>
+        </select>
+        </div>
+    </form>
+
+    <!-- TABLE HEADER -->
+    <div class="table-header">
+        <div>Store ID</div>
+        <div>Product Name</div>
+        <div>Category</div>
+        <div>Date</div>
+        <div>Status</div>
+        <div></div>
+    </div>
+
+    <!-- DATA FROM DB -->
+    <% productList.forEach(product => { %>
+        <div class="row-item">
+            <div class="store-id">
+                <%= product.storeId %>
+            </div>
+            <div class="product-name">
+                <%= product.productName %>
+            </div>
+            <div class="category">
+                <%= product.category %>
+            </div>
+            <div class="date">
+                <%= product.dateFormatted %>
+            </div>
+            <div class="status">
+                <span class="status-dot <%= product.status.toLowerCase() %>"></span>
+                <%= product.status.charAt(0).toUpperCase() + product.status.slice(1) %>
+            </div>
+            <a class="view-button" href="/product-approved/<%= product.productId %>">View</a>
+        </div>
+
+        <% }) %>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    const rows = Array.from(document.querySelectorAll(".row-item"));
+                    const statusFilter = document.getElementById("status-filter");
+                    const categoryFilter = document.getElementById("category-filter");
+                    const dateRange = document.getElementById("date-range");
+
+                    let startDate = null;
+                    let endDate = null;
+
+                    flatpickr("#date-range", {
+                        mode: "range",
+                        dateFormat: "Y-m-d",
+                        onChange: function(selectedDates) {
+                            startDate = selectedDates[0];
+                            endDate = selectedDates[1] || selectedDates[0];
+                            filterTable();
+                        }
+                    });
+
+                    statusFilter.addEventListener("change", filterTable);
+                    categoryFilter.addEventListener("change", filterTable);
+
+                    function filterTable() {
+                        rows.forEach(row => {
+                            const statusText = row.querySelector(".status").textContent.trim().toLowerCase();
+                            const categoryText = row.querySelector(".category").textContent.trim().toLowerCase();
+                            const dateText = row.querySelector(".date").textContent.trim(); // "03/05/2025"
+
+
+                            // Compare status
+                            const statusMatch = !statusFilter.value || statusText.includes(statusFilter.value);
+
+                            // Compare category
+                            const selectedCategory = categoryFilter.options[categoryFilter.selectedIndex].text.toLowerCase();
+                            const categoryMatch = !categoryFilter.value || categoryText.includes(selectedCategory);
+
+                            // Compare date
+                            let dateMatch = true;
+                            if (startDate && endDate) {
+                                const rowDate = new Date(dateText.split("/").reverse().join("-"));
+                                dateMatch = rowDate >= startDate && rowDate <= endDate;
+                            }
+
+                            row.style.display = (statusMatch && categoryMatch && dateMatch) ? "grid" : "none";
+                        });
+                    }
+                });
+            </script>
+
+
+</body>
+
+</html>

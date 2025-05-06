@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="/css/3_Checking.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Approval</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+
+<body>
+    <div class="header">JUNO ADMIN</div>
+
+    <div class="top-nav">
+        <a href="/admin-menu">Home</a>
+        <a href="/read-only-analyst">Read-Only Analyst</a>
+        <a href="/data-management">Data Management</a>
+        <a class="logout" href="/logout">Logout</a>
+    </div>
+
+    <div class="breadcrumb">
+        <a href="/admin-menu">Home</a>
+        <a href="/data-management">Data Management</a>
+        <span>Product Approval</span>
+    </div>
+
+    <h1 class="page-title">Product Approval</h1>
+
+    <!-- Filter Form -->
+    <form id="filter-form" class="filter-container" onsubmit="return false;">
+        <div class="filter-item">
+            <label for="date-range">Date Range</label>
+            <input type="text" id="date-range" placeholder="Select date range">
+        </div>
+
+        <div class="filter-item">
+            <label for="category-filter">Category</label>
+            <select id="category-filter">
+        <option value="">All</option>
+        <option value="Fashion & Clothing">Fashion & Clothing</option>
+        <option value="Electronics & Appliances">Electronics & Appliances</option>
+        <option value="Health & Beauty">Health & Beauty</option>
+        <option value="Home & Living">Home & Living</option>
+        <option value="Food & Beverages">Food & Beverages</option>
+        <option value="Mom & Baby">Mom & Baby</option>
+        <option value="Electronics & Gadgets">Electronics & Gadgets</option>
+        <option value="Other">Other</option>
+      </select>
+        </div>
+    </form>
+
+    <!-- Table Header -->
+    <div class="table-header">
+        <div>Product ID</div>
+        <div>Citizen ID</div>
+        <div>Product Name</div>
+        <div>Category</div>
+        <div>Date</div>
+        <div>Action</div>
+    </div>
+
+    <!-- Table Rows -->
+    <% products.forEach(product => { %>
+        <div class="box-link row-item" data-category="<%= product.category %>" data-date="<%= product.date %>">
+            <div>
+                <%= product.productId %>
+            </div>
+            <div>
+                <%= product.citizenId %>
+            </div>
+            <div>
+                <%= product.productName %>
+            </div>
+            <div>
+                <%= product.category %>
+            </div>
+            <div>
+                <%= product.date %>
+            </div>
+            <div><a class="view-button" href="3-2-1_View_Product_Approval.ejs?id=<%= product.productId %>">View</a></div>
+        </div>
+        <% }); %>
+
+            <!-- Scripts -->
+            <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+            <script>
+                let selectedStart = null;
+                let selectedEnd = null;
+
+                flatpickr("#date-range", {
+                    mode: "range",
+                    dateFormat: "Y-m-d",
+                    onChange: function(selectedDates) {
+                        selectedStart = selectedDates[0];
+                        selectedEnd = selectedDates[1] || selectedDates[0]; // use same day if only one selected
+                        filterTable();
+                    }
+                });
+
+                document.getElementById("category-filter").addEventListener("change", filterTable);
+
+                function filterTable() {
+                    const category = document.getElementById("category-filter").value;
+                    const rows = document.querySelectorAll(".row-item");
+
+                    rows.forEach(row => {
+                        const rowCategory = row.dataset.category;
+                        const rowDate = new Date(row.dataset.date);
+
+                        const matchCategory = !category || rowCategory === category;
+                        const matchDate =
+                            (!selectedStart || !selectedEnd) ||
+                            (rowDate >= selectedStart && rowDate <= selectedEnd);
+
+                        if (matchCategory && matchDate) {
+                            row.style.display = "";
+                        } else {
+                            row.style.display = "none";
+                        }
+                    });
+                }
+            </script>
+
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="/css/1_Login_Password.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+</head>
+
+<body>
+    <div class="header">
+        <span>JUNO ADMIN</span>
+    </div>
+
+    <div class="container">
+        <h1>Admin Login</h1>
+        <form action="/login" method="post">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Login</button>
+
+            <% if (typeof error !== 'undefined') { %>
+                <p style="color: red; margin-top: 10px;">
+                    <%= error %>
+                </p>
+                <% } %>
+        </form>
+
+        <a class="forgot-password" href="/forgot-password">Forgot Password?</a>
+
+    </div>
+</body>
+
+</html>
