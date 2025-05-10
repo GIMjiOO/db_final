@@ -4,7 +4,7 @@
   "description": "Node.js Express Backend",
   "main": "server.js",
   "scripts": {
-    "dev": "node --watch server.js",
+    "dev": "nodemon server.js",  
     "start": "node server.js"
   },
   "dependencies": {

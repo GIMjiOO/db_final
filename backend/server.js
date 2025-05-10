@@ -20,10 +20,13 @@ app.get("/", (req, res) => {
   res.send("Hello from Node.js + Express!");
 });
 
-// Route หลักที่ใช้ EJS
-app.get('/admin/login', (req, res) => {
-  res.render('admin/1_Login'); // ส่ง render ไฟล์ views/admin/1_Login.ejs
+
+//เชื่อม Route ให้แสดงผล EJS ทั้งหมด ใน views/admin
+app.get('/admin/:page', (req, res) => {
+  const page = req.params.page;
+  res.render(`admin/${page}`);
 });
+
 
 // เริ่มเซิร์ฟเวอร์
 const PORT = 8000;
