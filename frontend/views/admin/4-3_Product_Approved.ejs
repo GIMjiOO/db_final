@@ -62,7 +62,7 @@
     <!-- TABLE HEADER -->
     <div class="table-header">
         <div>Store ID</div>
-        <div>Product Name</div>
+        <div>Product ID</div>
         <div>Category</div>
         <div>Date</div>
         <div>Status</div>
@@ -75,8 +75,8 @@
             <div class="store-id">
                 <%= product.storeId %>
             </div>
-            <div class="product-name">
-                <%= product.productName %>
+            <div class="product-id">
+                <%= product.productId %>
             </div>
             <div class="category">
                 <%= product.category %>
@@ -88,7 +88,7 @@
                 <span class="status-dot <%= product.status.toLowerCase() %>"></span>
                 <%= product.status.charAt(0).toUpperCase() + product.status.slice(1) %>
             </div>
-            <a class="view-button" href="/product-approved/<%= product.productId %>">View</a>
+            <a class="view-button" href="/admin/4-3-1_View_Product_Approved?id=<%= product.productId %>">View</a>
         </div>
 
         <% }) %>
