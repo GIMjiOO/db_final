@@ -8,12 +8,12 @@ router.get("/", (req, res) => {
 });
 
 // Route 2_Admin_Menu
-router.get('/admin/2_Admin_Menu', (req, res) => {
+router.get('/admin-menu', (req, res) => {
   res.render('admin/2_Admin_Menu');
 });
 
 // Route 3_Data_Management
-router.get('/admin/3_Data_Management', async (req, res) => {
+router.get('/data-management', async (req, res) => {
   try {
     const [vendorRows] = await db.promise().query(`
       SELECT COUNT(*) AS count
@@ -41,7 +41,7 @@ router.get('/admin/3_Data_Management', async (req, res) => {
 });
 
 // Route 3-2_Product_Approval
-router.get('/admin/3-2_Product_Approval', (req, res) => {
+router.get('/product-approval', (req, res) => {
   const query = `
     SELECT 
       p.product_id AS productId,
@@ -65,7 +65,7 @@ router.get('/admin/3-2_Product_Approval', (req, res) => {
 });
 
 // Route 3-2-1_View_Product_Approval
-router.get('/admin/3-2-1_View_Product_Approval', (req, res) => {
+router.get('/3-2-1_View_Product_Approval.ejs', (req, res) => {
   const productId = req.query.id;
 
   const query = `
@@ -105,7 +105,7 @@ router.post('/product/:id/approve', (req, res) => {
       console.error('Error approving product:', err);
       return res.status(500).send('Server error');
     }
-    res.redirect('/admin/3-2_Product_Approval');
+    res.redirect('/product-approval');
   });
 });
 
@@ -119,17 +119,17 @@ router.post('/product/:id/reject', (req, res) => {
       console.error('Error rejecting product:', err);
       return res.status(500).send('Server error');
     }
-    res.redirect('/admin/3-2_Product_Approval');
+    res.redirect('/product-approval');
   });
 });
 
 // Route 4_Read_Only_Analyst
-router.get('/admin/4_Read_Only_Analyst', (req, res) => {
+router.get('/read-only-analyst', (req, res) => {
   res.render('admin/4_Read_Only_Analyst');
 });
 
 // Route 4-3_Product_Approved
-router.get('/admin/4-3_Product_Approved', async (req, res) => {
+router.get('/product-approved', async (req, res) => {
   try {
     const query = `
       SELECT 
@@ -168,9 +168,9 @@ router.get('/admin/4-3_Product_Approved', async (req, res) => {
 });
 
 // Route 4-3-1_View_Product_Approved
-router.get('/admin/4-3-1_View_Product_Approved', (req, res) => {
-  const productId = req.query.id;
+router.get('/product-approved/:id', (req, res) => {
   const sourcePage = req.query.source || "fromProductApproved";
+  const productId = req.params.id;
 
   const query = `
     SELECT 

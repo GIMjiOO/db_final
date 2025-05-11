@@ -12,21 +12,21 @@
     <div class="header">JUNO ADMIN</div>
 
     <div class="top-nav">
-        <a href="/admin/2_Admin_Menu">Home</a>
-        <a href="/admin/4_Read_Only_Analyst">Read-Only Analyst</a>
-        <a href="/admin/3_Data_Management">Data Management</a>
+        <a href="/admin-menu">Home</a>
+        <a href="/read-only-analyst">Read-Only Analyst</a>
+        <a href="/data-management">Data Management</a>
         <a class="logout" href="/logout">Logout</a>
     </div>
 
     <div class="breadcrumb">
-        <a href="/admin/2_Admin_Menu">Home</a>
-        <a href="/admin/4_Read_Only_Analyst">Read-Only Analyst</a>
+        <a href="/admin-menu">Home</a>
+        <a href="/read-only-analyst">Read-Only Analyst</a>
 
         <% if (sourcePage === "fromStore") { %>
             <a href="/all-stores">All Stores</a>
-            <a href="/admin/3-2_Product_Approval">Product Approved</a>
+            <a href="/product-approved">Product Approved</a>
             <% } else if (sourcePage === "fromProductApproved") { %>
-                <a href="/admin/3-2_Product_Approval">Product Approved</a>
+                <a href="/product-approved">Product Approved</a>
                 <% } %>
 
                     <span>View</span>
