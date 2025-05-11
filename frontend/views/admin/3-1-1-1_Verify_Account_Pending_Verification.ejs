@@ -30,9 +30,6 @@
         <h1 class="page-title">Account Pending Verification</h1>
 
         <div class="vendor-info">
-            <p><strong>Vendor type:</strong>
-                <%= account.vendorType %>
-            </p>
             <p><strong>Store name:</strong>
                 <%= account.storeName %>
             </p>
@@ -43,14 +40,11 @@
                     <p><em>No image available</em></p>
                     <% } %>
 
-                        <p><strong>Name:</strong>
+                <p><strong>Name:</strong>
                             <%= account.name %>
-                        </p>
-                        <p><strong>Identification Number:</strong>
+                        </p>        
+                    <p><strong>Identification Number:</strong>
                             <%= account.citizenId %>
-                        </p>
-                        <p><strong>Date of birth:</strong>
-                            <%= account.birthDate %>
                         </p>
                         <p><strong>Phone number:</strong>
                             <%= account.phone %>

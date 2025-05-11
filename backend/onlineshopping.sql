@@ -39,8 +39,8 @@ CREATE TABLE `Carts` (
 --
 
 INSERT INTO `Carts` (`cart_id`, `customer_id`, `created_at`, `updated_at`) VALUES
-(1, 1, '2025-05-05 17:15:59', '2025-05-05 17:15:59'),
-(2, 2, '2025-05-05 17:15:59', '2025-05-05 17:15:59'),
+(1, 1, '2025-04-30 17:15:59', '2025-05-05 17:15:59'),
+(2, 2, '2025-05-01 17:15:59', '2025-05-05 17:15:59'),
 (3, 3, '2025-05-05 17:15:59', '2025-05-05 17:15:59'),
 (4, 4, '2025-05-09 09:42:44', '2025-05-09 09:42:44'),
 (5, 5, '2025-05-09 09:42:44', '2025-05-09 09:42:44'),
@@ -151,15 +151,15 @@ CREATE TABLE `Customers` (
 --
 
 INSERT INTO `Customers` (`customer_id`, `first_name`, `last_name`, `username`, `email`, `password`, `phone_number`, `created_at`, `updated_at`) VALUES
-(1, 'Vanda', 'CPE', 'vanda123', 'vanda@gmail.com', 'pass1234', '0812345678', '2025-05-05 10:35:30', '2025-05-05 10:35:30'),
-(2, 'Gim', 'CPE', 'gim123', 'gim@gmail.com', 'pass1234', '0812345679', '2025-05-05 10:37:45', '2025-05-05 13:46:56'),
-(3, 'Pang', 'CPE', 'pang123', 'pang@gmail.com', 'pass1234', '0812345670', '2025-05-05 10:40:10', '2025-05-05 13:47:07'),
-(4, 'Alice', 'Smith', 'alice_smith', 'alice@example.com', 'password123', '0802345678', '2025-05-09 08:51:45', '2025-05-09 08:51:59'),
-(5, 'Bob', 'Johnson', 'bob_johnson', 'bob@example.com', 'password456', '0823456789', '2025-05-09 08:51:45', '2025-05-09 09:03:51'),
+(1, 'Vanda', 'CPE', 'vanda123', 'vanda@gmail.com', 'pass1234', '0812345678', '2025-02-05 10:35:30', '2025-05-05 10:35:30'),
+(2, 'Gim', 'CPE', 'gim123', 'gim@gmail.com', 'pass1234', '0812345679', '2025-03-14 11:01:03', '2025-05-05 13:46:56'),
+(3, 'Pang', 'CPE', 'pang123', 'pang@gmail.com', 'pass1234', '0812345670', '2025-04-22 17:51:33', '2025-05-05 13:47:07'),
+(4, 'Alice', 'Smith', 'alice_smith', 'alice@example.com', 'password123', '0802345678', '2025-04-30 03:27:40', '2025-05-09 08:51:59'),
+(5, 'Bob', 'Johnson', 'bob_johnson', 'bob@example.com', 'password456', '0823456789', '2025-05-05 08:51:45', '2025-05-09 09:03:51'),
 (6, 'Carol', 'Williams', 'carol_williams', 'carol@example.com', 'password789', '0834567890', '2025-05-09 08:51:45', '2025-05-09 09:03:56'),
 (7, 'David', 'Brown', 'david_brown', 'david@example.com', 'pass321', '0841234567', '2025-05-09 08:51:45', '2025-05-09 09:04:00'),
-(8, 'Eva', 'Davis', 'eva_davis', 'eva@example.com', 'pass654', '0852345678', '2025-05-09 08:51:45', '2025-05-09 09:04:04'),
-(9, 'Frank', 'Miller', 'frank_miller', 'frank@example.com', 'pass987', '0863456789', '2025-05-09 08:51:45', '2025-05-09 09:04:09');
+(8, 'Eva', 'Davis', 'eva_davis', 'eva@example.com', 'pass654', '0852345678', '2025-05-10 08:51:45', '2025-05-09 09:04:04'),
+(9, 'Frank', 'Miller', 'frank_miller', 'frank@example.com', 'pass987', '0863456789', '2025-05-10 08:51:45', '2025-05-09 09:04:09');
 
 -- --------------------------------------------------------
 
@@ -912,3 +912,286 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+-- ---------
+-- Insert additional sample data
+-- 1. INSERT MORE CUSTOMERS (TO SHOW TOTAL ACCOUNTS AND NEW CUSTOMERS THIS WEEK)
+INSERT INTO `Customers` 
+(`customer_id`, `first_name`, `last_name`, `username`, `email`, `password`, `phone_number`, `created_at`) 
+VALUES
+(10, 'Sarah', 'Wilson', 'sarah_wilson', 'sarah@example.com', 'pass222', '0871234567', '2025-05-03 10:15:22'),
+(11, 'Michael', 'Taylor', 'michael_taylor', 'michael@example.com', 'pass333', '0882345678', '2025-05-04 11:30:45'),
+(12, 'Jennifer', 'Anderson', 'jennifer_anderson', 'jennifer@example.com', 'pass444', '0893456789', '2025-05-05 09:20:15'),
+(13, 'Christopher', 'Thomas', 'chris_thomas', 'chris@example.com', 'pass555', '0904567890', '2025-05-06 14:45:30'),
+(14, 'Jessica', 'Jackson', 'jessica_jackson', 'jessica@example.com', 'pass666', '0915678901', '2025-05-07 16:10:25'),
+(15, 'Matthew', 'White', 'matt_white', 'matt@example.com', 'pass777', '0926789012', '2025-05-08 08:55:40'),
+(16, 'Amanda', 'Harris', 'amanda_harris', 'amanda@example.com', 'pass888', '0937890123', '2025-05-09 10:25:33'),
+(17, 'Daniel', 'Martin', 'daniel_martin', 'daniel@example.com', 'pass999', '0948901234', '2025-05-10 09:15:18');
+
+-- 2. ADD CARTS FOR NEW CUSTOMERS
+INSERT INTO `Carts` 
+(`cart_id`, `customer_id`, `created_at`, `updated_at`) 
+VALUES
+(10, 10, '2025-05-03 10:20:15', '2025-05-03 10:20:15'),
+(11, 11, '2025-05-04 11:35:22', '2025-05-04 11:35:22'),
+(12, 12, '2025-05-05 09:25:33', '2025-05-05 09:25:33'),
+(13, 13, '2025-05-06 14:50:45', '2025-05-06 14:50:45'),
+(14, 14, '2025-05-07 16:15:18', '2025-05-07 16:15:18'),
+(15, 15, '2025-05-08 09:00:30', '2025-05-08 09:00:30'),
+(16, 16, '2025-05-09 10:30:45', '2025-05-09 10:30:45'),
+(17, 17, '2025-05-10 09:20:25', '2025-05-10 09:20:25');
+
+-- 3. INSERT ABANDONED CARTS (CARTS WITH ITEMS BUT NO ORDERS FOR 1 WEEK)
+INSERT INTO `Cart_Items` 
+(`cart_item_id`, `cart_id`, `product_id`, `quantity`, `added_at`) 
+VALUES
+(10, 10, 2, 1, '2025-05-03 10:45:12'),
+(11, 11, 3, 1, '2025-05-04 12:10:33'),
+(12, 12, 4, 2, '2025-05-05 09:50:22'),
+(13, 13, 5, 1, '2025-05-06 15:25:45'),
+(14, 14, 6, 3, '2025-05-07 16:40:18');
+
+-- 4. INSERT MORE SELLERS (TO SHOW TOTAL SELLERS AND NEW VENDORS THIS WEEK)
+INSERT INTO `Sellers` 
+(`citizen_id`, `store_name`, `owner_name`, `image_url`, `email`, `password`, `phone_number`, `business_address`, `created_at`, `qualification_status`, `srl_status`) 
+VALUES
+('8901234567890', 'SportyGoods', 'George Wilson', 'https://shorturl.asia/dKfP2', 'sporty@example.com', 'pass012', '0907890123', '404 Active Ave, Bangkok', '2025-05-06 13:45:22', 1, 1),
+('9012345678901', 'PetParadise', 'Helen Davis', 'https://shorturl.asia/gRtN4', 'pets@example.com', 'pass345', '0918901234', '505 Animal St, Chiang Rai', '2025-05-07 14:30:15', 1, 1),
+('0123456789012', 'MusicMasters', 'Ivan Chen', 'https://shorturl.asia/jTyM6', 'music@example.com', 'pass678', '0929012345', '606 Beat Blvd, Pattaya', '2025-05-08 15:15:33', 1, 1),
+('1234567890122', 'ArtSupplies', 'Julia Park', 'https://shorturl.asia/kLbV8', 'art@example.com', 'pass901', '0930123456', '707 Canvas Rd, Hua Hin', '2025-05-09 09:40:45', 1, 1),
+('2345678901233', 'OrganicFarm', 'Kevin Lee', 'https://shorturl.asia/mQwZ0', 'organic@example.com', 'pass234', '0941234567', '808 Green Path, Krabi', '2025-05-10 08:25:18', 1, 1);
+
+-- 5. ADD BANK ACCOUNTS FOR NEW SELLERS
+INSERT INTO `Seller_Bank_Accounts` 
+(`bank_account_id`, `citizen_id`, `bank_name`, `account_number`, `account_holder_name`, `created_at`) 
+VALUES
+(8, '8901234567890', 'Kasikorn Bank', '777-888-9999', 'George Wilson', '2025-05-06 13:50:33'),
+(9, '9012345678901', 'Bangkok Bank', '888-999-0000', 'Helen Davis', '2025-05-07 14:35:45'),
+(10, '0123456789012', 'SCB', '999-000-1111', 'Ivan Chen', '2025-05-08 15:20:22'),
+(11, '1234567890122', 'Krungthai Bank', '000-111-2222', 'Julia Park', '2025-05-09 09:45:15'),
+(12, '2345678901233', 'TTB', '111-222-1234', 'Kevin Lee', '2025-05-10 08:30:33');
+
+-- 6. ADD MORE PRODUCTS WITH DIFFERENT CATEGORIES
+INSERT INTO `Products` 
+(`product_id`, `citizen_id`, `name`, `description`, `price`, `stock_quantity`, `image_url`, `created_at`, `pa_status`) 
+VALUES
+(8, '8901234567890', 'Tennis Racket Pro', 'Professional grade tennis racket', 4500.00, 30, 'https://shorturl.asia/nRsT9', '2025-05-06 14:00:15', 1),
+(9, '9012345678901', 'Premium Dog Food', 'Organic dog food 5kg bag', 1200.00, 45, 'https://shorturl.asia/pTuV0', '2025-05-07 14:40:22', 1),
+(10, '0123456789012', 'Acoustic Guitar', 'Beginner friendly acoustic guitar', 3800.00, 15, 'https://shorturl.asia/qVwX1', '2025-05-08 15:25:33', 1),
+(11, '1234567890122', 'Watercolor Set', 'Professional 24 color watercolor set', 950.00, 60, 'https://shorturl.asia/rWxY2', '2025-05-09 09:50:45', 1),
+(12, '2345678901233', 'Organic Vegetables Box', 'Mixed organic vegetables weekly box', 650.00, 100, 'https://shorturl.asia/sXyZ3', '2025-05-10 08:35:18', 1);
+
+-- 7. LINK NEW PRODUCTS TO CATEGORIES
+INSERT INTO `Categories_Products` 
+(`category_id`, `product_id`) 
+VALUES
+(5, 8),  -- Home & Living for Tennis Racket (could also be a special sports category)
+(9, 9),  -- Other for Pet Food
+(9, 10), -- Other for Musical instrument
+(9, 11), -- Other for Art supplies
+(6, 12); -- Food & Beverages for Organic Vegetables
+
+-- 8. INSERT HISTORICAL ORDERS FOR LAST 3 MONTHS (MARCH, APRIL, MAY) FOR SALES TRACKING
+-- MARCH ORDERS
+INSERT INTO `Orders` 
+(`order_id`, `customer_id`, `total_price`, `order_status`, `payment_status`, `created_at`) 
+VALUES
+(6, 1, 178.00, 2, 1, '2025-03-10 13:22:15'),
+(7, 2, 9998.00, 2, 1, '2025-03-15 14:33:45'),
+(8, 3, 2590.00, 2, 1, '2025-03-20 15:44:22'),
+(9, 4, 9998.00, 2, 1, '2025-03-25 16:55:33');
+
+-- APRIL ORDERS
+INSERT INTO `Orders` 
+(`order_id`, `customer_id`, `total_price`, `order_status`, `payment_status`, `created_at`) 
+VALUES
+(10, 5, 3590.00, 2, 1, '2025-04-05 10:15:45'),
+(11, 6, 4999.00, 2, 1, '2025-04-10 11:25:18'),
+(12, 7, 4500.00, 2, 1, '2025-04-15 12:35:22'),
+(13, 8, 1200.00, 2, 1, '2025-04-20 13:45:33'),
+(14, 9, 3800.00, 2, 1, '2025-04-25 14:55:45');
+
+-- MAY ORDERS (ALREADY HAVE SOME, ADDING MORE)
+INSERT INTO `Orders` 
+(`order_id`, `customer_id`, `total_price`, `order_status`, `payment_status`, `created_at`) 
+VALUES
+(15, 10, 950.00, 1, 1, '2025-05-01 09:10:15'),
+(16, 11, 650.00, 1, 1, '2025-05-03 10:20:22'),
+(17, 12, 4500.00, 1, 1, '2025-05-05 11:30:33'),
+(18, 13, 1200.00, 1, 1, '2025-05-07 12:40:45'),
+(19, 14, 3800.00, 1, 1, '2025-05-09 13:50:18');
+
+-- 9. ADD ORDER ITEMS FOR THE NEW ORDERS
+-- MARCH ORDER ITEMS
+INSERT INTO `Order_Items` 
+(`order_item_id`, `order_id`, `product_id`, `quantity`, `price`) 
+VALUES
+(6, 6, 1, 2, 89.00),
+(7, 7, 3, 2, 4999.00),
+(8, 8, 5, 1, 2590.00),
+(9, 9, 3, 2, 4999.00);
+
+-- APRIL ORDER ITEMS
+INSERT INTO `Order_Items` 
+(`order_item_id`, `order_id`, `product_id`, `quantity`, `price`) 
+VALUES
+(10, 10, 7, 1, 3590.00),
+(11, 11, 3, 1, 4999.00),
+(12, 12, 8, 1, 4500.00),
+(13, 13, 9, 1, 1200.00),
+(14, 14, 10, 1, 3800.00);
+
+-- MAY ORDER ITEMS
+INSERT INTO `Order_Items` 
+(`order_item_id`, `order_id`, `product_id`, `quantity`, `price`) 
+VALUES
+(15, 15, 11, 1, 950.00),
+(16, 16, 12, 1, 650.00),
+(17, 17, 8, 1, 4500.00),
+(18, 18, 9, 1, 1200.00),
+(19, 19, 10, 1, 3800.00);
+
+-- 10. SALES HISTORY FOR REVENUE TRACKING AND TOP PERFORMING SELLERS
+-- MARCH SALES
+INSERT INTO `Sales_History` 
+(`sale_id`, `citizen_id`, `order_id`, `customer_id`, `product_id`, `quantity_sold`, `created_at`) 
+VALUES
+(4, '1234567890123', 6, 1, 1, 2, '2025-03-10 13:25:15'),
+(5, '3456789012345', 7, 2, 3, 2, '2025-03-15 14:35:45'),
+(6, '5678901234567', 8, 3, 5, 1, '2025-03-20 15:46:22'),
+(7, '3456789012345', 9, 4, 3, 2, '2025-03-25 16:57:33');
+
+-- APRIL SALES
+INSERT INTO `Sales_History` 
+(`sale_id`, `citizen_id`, `order_id`, `customer_id`, `product_id`, `quantity_sold`, `created_at`) 
+VALUES
+(8, '7890123456789', 10, 5, 7, 1, '2025-04-05 10:17:45'),
+(9, '3456789012345', 11, 6, 3, 1, '2025-04-10 11:27:18'),
+(10, '8901234567890', 12, 7, 8, 1, '2025-04-15 12:37:22'),
+(11, '9012345678901', 13, 8, 9, 1, '2025-04-20 13:47:33'),
+(12, '0123456789012', 14, 9, 10, 1, '2025-04-25 14:57:45');
+
+-- MAY SALES
+INSERT INTO `Sales_History` 
+(`sale_id`, `citizen_id`, `order_id`, `customer_id`, `product_id`, `quantity_sold`, `created_at`) 
+VALUES
+(13, '1234567890122', 15, 10, 11, 1, '2025-05-01 09:12:15'),
+(14, '2345678901233', 16, 11, 12, 1, '2025-05-03 10:22:22'),
+(15, '8901234567890', 17, 12, 8, 1, '2025-05-05 11:32:33'),
+(16, '9012345678901', 18, 13, 9, 1, '2025-05-07 12:42:45'),
+(17, '0123456789012', 19, 14, 10, 1, '2025-05-09 13:52:18');
+
+-- 11. ADD FLASH SALE DATA 
+-- Update some products with flash sale information
+UPDATE `Products`
+SET 
+  `discount_percentage` = 15.00,
+  `fs_start_time` = '2025-05-01 00:00:00',
+  `fs_end_time` = '2025-05-15 23:59:59',
+  `fs_created_at` = '2025-04-25 10:00:00',
+  `fs_status` = 1
+WHERE `product_id` IN (3, 5, 7);
+
+-- Add more flash sale products
+UPDATE `Products`
+SET 
+  `discount_percentage` = 20.00,
+  `fs_start_time` = '2025-05-05 00:00:00',
+  `fs_end_time` = '2025-05-20 23:59:59',
+  `fs_created_at` = '2025-04-30 10:00:00',
+  `fs_status` = 1
+WHERE `product_id` IN (8, 10);
+
+-- 12. ADD PAYMENTS FOR ALL ORDERS
+INSERT INTO `Payments` 
+(`payment_id`, `order_id`, `payment_method`, `payment_status`, `payment_date`, `transaction_id`, `create_at`) 
+VALUES
+(6, 6, 1, 1, '2025-03-10 13:30:15', 'TXN123456', '2025-03-10 13:30:15'),
+(7, 7, 1, 1, '2025-03-15 14:40:45', 'TXN234567', '2025-03-15 14:40:45'),
+(8, 8, 1, 1, '2025-03-20 15:50:22', 'TXN345679', '2025-03-20 15:50:22'),
+(9, 9, 1, 1, '2025-03-25 17:00:33', 'TXN456780', '2025-03-25 17:00:33'),
+(10, 10, 1, 1, '2025-04-05 10:20:45', 'TXN567890', '2025-04-05 10:20:45'),
+(11, 11, 1, 1, '2025-04-10 11:30:18', 'TXN678901', '2025-04-10 11:30:18'),
+(12, 12, 1, 1, '2025-04-15 12:40:22', 'TXN789012', '2025-04-15 12:40:22'),
+(13, 13, 1, 1, '2025-04-20 13:50:33', 'TXN890123', '2025-04-20 13:50:33'),
+(14, 14, 1, 1, '2025-04-25 15:00:45', 'TXN901234', '2025-04-25 15:00:45'),
+(15, 15, 1, 1, '2025-05-01 09:15:15', 'TXN012345', '2025-05-01 09:15:15'),
+(16, 16, 1, 1, '2025-05-03 10:25:22', 'TXN123450', '2025-05-03 10:25:22'),
+(17, 17, 1, 1, '2025-05-05 11:35:33', 'TXN234501', '2025-05-05 11:35:33'),
+(18, 18, 1, 1, '2025-05-07 12:45:45', 'TXN345012', '2025-05-07 12:45:45'),
+(19, 19, 1, 1, '2025-05-09 13:55:18', 'TXN450123', '2025-05-09 13:55:18');
+
+-- 13. ENSURE WE HAVE INTERACTION LOGS TO TRACK USER BEHAVIOR
+INSERT INTO `Interaction_Logs` 
+(`interaction_id`, `customer_id`, `interaction_timestamp`, `interaction_type`, `entity_type`, `entity_id`) 
+VALUES
+(9, 10, '2025-05-01 08:30:15', 'view', 'Products', 11),
+(10, 10, '2025-05-01 08:35:22', 'add_to_cart', 'Products', 11),
+(11, 11, '2025-05-03 09:40:33', 'search', 'Categories', 6),
+(12, 11, '2025-05-03 09:45:45', 'view', 'Products', 12),
+(13, 11, '2025-05-03 09:50:18', 'add_to_cart', 'Products', 12),
+(14, 12, '2025-05-05 10:55:22', 'view', 'Products', 8),
+(15, 12, '2025-05-05 11:00:33', 'add_to_cart', 'Products', 8),
+(16, 13, '2025-05-07 12:05:45', 'search', 'Categories', 9),
+(17, 13, '2025-05-07 12:10:18', 'view', 'Products', 9),
+(18, 13, '2025-05-07 12:15:22', 'add_to_cart', 'Products', 9),
+(19, 14, '2025-05-09 13:20:33', 'view', 'Products', 10),
+(20, 14, '2025-05-09 13:25:45', 'add_to_cart', 'Products', 10);
+
+-- 14. ADD WISHLIST ENTRIES FOR PRODUCT POPULARITY TRACKING
+INSERT INTO `Wishlists` 
+(`wishlist_id`, `customer_id`, `product_id`, `created_at`) 
+VALUES
+(9, 10, 3, '2025-05-01 08:40:15'),
+(10, 10, 7, '2025-05-01 08:45:22'),
+(11, 11, 5, '2025-05-03 09:55:33'),
+(12, 12, 10, '2025-05-05 11:05:45'),
+(13, 13, 8, '2025-05-07 12:20:18'),
+(14, 14, 11, '2025-05-09 13:30:22'),
+(15, 15, 9, '2025-05-08 09:05:33'),
+(16, 16, 12, '2025-05-09 10:35:45');
+
+-- 15. ADD RECOMMENDATIONS 
+INSERT INTO `Recommendations` 
+(`recommendation_id`, `customer_id`, `product_id`, `recommendation_score`) 
+VALUES
+(8, 10, 11, 9),
+(9, 11, 12, 8),
+(10, 12, 8, 7),
+(11, 13, 9, 9),
+(12, 14, 10, 8),
+(15, 15, 6, 7),
+(16, 16, 4, 8),
+(17, 17, 2, 9);
+
+-- 16. ADD REVIEWS FOR POPULAR PRODUCTS
+INSERT INTO `Reviews` 
+(`review_id`, `customer_id`, `product_id`, `rating`, `review_text`, `created_at`) 
+VALUES
+(4, 10, 11, 5, 'Great quality watercolors! Vibrant colors.', '2025-05-01 09:20:15'),
+(5, 11, 12, 4, 'Fresh vegetables, good variety.', '2025-05-03 10:30:22'),
+(6, 12, 8, 5, 'Perfect tennis racket for my games.', '2025-05-05 11:40:33'),
+(7, 13, 9, 4, 'My dog loves this food.', '2025-05-07 12:50:45'),
+(8, 14, 10, 5, 'Excellent guitar for beginners.', '2025-05-09 14:00:18');
+
+-- 17. INSERT INACTIVE SELLER (NO ORDERS THIS WEEK)
+INSERT INTO `Sellers` 
+(`citizen_id`, `store_name`, `owner_name`, `image_url`, `email`, `password`, `phone_number`, `business_address`, `created_at`, `qualification_status`, `srl_status`) 
+VALUES
+('3456789012344', 'InactiveStore', 'Lazy Seller', 'https://shorturl.asia/tZaB1', 'inactive@example.com', 'pass567', '0952345678', '909 Quiet St, Ayutthaya', '2025-04-01 09:15:22', 1, 1);
+
+INSERT INTO `Seller_Bank_Accounts` 
+(`bank_account_id`, `citizen_id`, `bank_name`, `account_number`, `account_holder_name`, `created_at`) 
+VALUES
+(13, '3456789012344', 'Bangkok Bank', '987-654-3210', 'Lazy Seller', '2025-04-01 09:20:33');
+
+INSERT INTO `Products` 
+(`product_id`, `citizen_id`, `name`, `description`, `price`, `stock_quantity`, `image_url`, `created_at`, `pa_status`) 
+VALUES
+(13, '3456789012344', 'Generic Product', 'Just a generic product', 599.00, 10, 'https://shorturl.asia/uAbC2', '2025-04-01 09:25:45', 1);
+
+-- Link to category
+INSERT INTO `Categories_Products` 
+(`category_id`, `product_id`) 
+VALUES
+(9, 13);  -- Other category for Generic Product

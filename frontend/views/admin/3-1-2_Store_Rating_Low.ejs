@@ -36,11 +36,12 @@
         <div class="filter-item">
             <label for="status-filter">Status</label>
             <select id="status-filter">
-        <option value="">Select Status</option>
-        <option value="not yet warned">Not Yet Warned</option>
-        <option value="pending">Pending</option>
-        <option value="failed">Failed</option>
-      </select>
+                <option value="">Select Status</option>
+                <option value="not yet warned">Not Yet Warned</option>
+                <option value="pending">Pending</option>
+                <option value="failed">Failed</option>
+                <option value="banned">Banned</option>
+            </select>
         </div>
     </form>
 
@@ -55,106 +56,121 @@
     </div>
 
     <% const today = new Date(); %>
-        <% stores.forEach(store => { 
-    const storeDate = new Date(store.date);
-    const diffDays = Math.floor((today - storeDate) / (1000 * 60 * 60 * 24));
-  %>
-            <div class="box-link row-item" data-status="<%= store.status %>" data-date="<%= store.date %>">
-                <div>
-                    <%= store.id %>
-                </div>
-                <div>
-                    <%= store.ratingBefore %>
-                </div>
-                <div>
-                    <%= store.date %>
-                </div>
+    <% stores.forEach(store => { 
+        const storeDate = new Date(store.date);
+        const diffDays = Math.floor((today - storeDate) / (1000 * 60 * 60 * 24));
+    %>
+        <div class="box-link row-item" data-status="<%= store.status %>" data-date="<%= store.date %>">
+            <div><%= store.id %></div>
+            <div><%= store.ratingBefore ? store.ratingBefore.toFixed(2) : '0.00' %></div>
+            <div><%= new Date(store.date).toLocaleDateString() %></div>
 
-                <!-- Rating After -->
-                <div>
-                    <% if (store.status !== 'not yet warned') { %>
-                        <% if (store.ratingAfter > store.ratingBefore) { %>
-                            <span class="arrow-up green">↑</span>
-                            <% } else if (store.ratingAfter < store.ratingBefore) { %>
-                                <span class="arrow-down red">↓</span>
-                                <% } %>
-                                    <span class="rating-after"><%= store.ratingAfter %></span>
-                                    <% } %>
-                </div>
+            <!-- Rating After -->
+            <div>
+                <% if (store.ratingAfter !== null) { %>
+                    <% if (store.ratingAfter > store.ratingBefore) { %>
+                        <span class="arrow-up green">↑</span>
+                    <% } else if (store.ratingAfter < store.ratingBefore) { %>
+                        <span class="arrow-down red">↓</span>
+                    <% } %>
+                    <span class="rating-after"><%= store.ratingAfter %></span>
+                <% } else { %>
+                    <span>N/A</span>
+                <% } %>
+            </div>
 
-                <!-- Status -->
-                <div class="status-label">
-                    <% if (store.status === 'not yet warned') { %>
-                        <span class="status-dot not-yet-warned"></span> Not Yet Warned
-                        <% } else if (store.status === 'pending') { %>
-                            <span class="status-dot pending"></span> Pending
-                            <% } else if (store.status === 'failed') { %>
-                                <span class="status-dot failed"></span> Banned
-                                <% } %>
-                </div>
+            <!-- Status -->
+            <div class="status-label">
+                <% if (store.status === 'not yet warned') { %>
+                    <span class="status-dot not-yet-warned"></span> Not Yet Warned
+                <% } else if (store.status === 'pending') { %>
+                    <span class="status-dot pending"></span> Pending
+                <% } else if (store.status === 'failed') { %>
+                    <span class="status-dot failed"></span> Failed
+                <% } else if (store.status === 'banned') { %>
+                    <span class="status-dot banned"></span> Banned
+                <% } else if (store.status === 'passed') { %>
+                    <span class="status-dot passed"></span> Passed
+                <% } %>
+            </div>
 
-                <!-- Action -->
-                <div>
-                    <% if (store.status === 'not yet warned') { %>
-                        <form method="POST" action="/warn">
-                            <input type="hidden" name="storeId" value="<%= store.id %>">
-                            <button type="submit" class="action-button warn">Warn</button>
-                        </form>
-                        <% } else if (store.status === 'pending' && diffDays >= 90 && store.ratingAfter < 2.5 && store.ratingAfter > store.ratingBefore) { %>
+            <!-- Action -->
+            <div>
+                <p>Store ID: <%= store.id %></p> <!-- Debugging line -->
+                <% if (store.status === 'not yet warned') { %>
+                    <form method="POST" action="/warn">
+                        <input type="hidden" name="storeId" value="<%= store.id %>">
+                        <button type="submit" class="action-button warn">Warn</button>
+                    </form>
+                <% } else if (store.status === 'pending') { %>
+                    <% if (store.ratingAfter < 2.5) { %>
+                        <% if (store.ratingAfter <= store.ratingBefore) { %>
+                            <form method="POST" action="/ban">
+                                <input type="hidden" name="storeId" value="<%= store.id %>">
+                                <button type="submit" class="action-button ban">Ban</button>
+                            </form>
+                        <% } else { %>
+                            <!-- Rating improved but still below threshold -->
                             <form method="POST" action="/warn">
                                 <input type="hidden" name="storeId" value="<%= store.id %>">
-                                <button type="submit" class="action-button warn">Warn</button>
+                                <button type="submit" class="action-button warn">Warn Again</button>
                             </form>
-                            <% } else if (store.status === 'failed') { %>
-                                <form method="POST" action="/ban">
-                                    <input type="hidden" name="storeId" value="<%= store.id %>">
-                                    <button type="submit" class="action-button ban">Banned</button>
-                                </form>
-                                <% } %>
-                </div>
+                        <% } %>
+                    <% } %>
+                <% } else if (store.status === 'failed') { %>
+                    <form method="POST" action="/ban">
+                        <input type="hidden" name="storeId" value="<%= store.id %>">
+                        <button type="submit" class="action-button ban">Ban</button>
+                    </form>
+                <% } else if (store.status === 'banned') { %>
+                    <span class="banned-text">Account Disabled</span>
+                <% } %>
             </div>
-            <% }); %>
+        </div>
+    <% }); %>
 
-                <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-                <script>
-                    // Setup Flatpickr
-                    let selectedStart = null;
-                    let selectedEnd = null;
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        // Setup Flatpickr
+        let selectedStart = null;
+        let selectedEnd = null;
 
-                    flatpickr("#date-range", {
-                        mode: "range",
-                        dateFormat: "Y-m-d",
-                        onChange: function(selectedDates) {
-                            selectedStart = selectedDates[0];
-                            selectedEnd = selectedDates[1];
-                            filterRows();
-                        }
-                    });
+        flatpickr("#date-range", {
+            mode: "range",
+            dateFormat: "Y-m-d",
+            onChange: function(selectedDates) {
+                if (selectedDates.length === 2) {
+                    selectedStart = selectedDates[0];
+                    selectedEnd = selectedDates[1];
+                    filterRows();
+                }
+            }
+        });
 
-                    document.getElementById("status-filter").addEventListener("change", filterRows);
+        document.getElementById("status-filter").addEventListener("change", filterRows);
 
-                    function filterRows() {
-                        const statusValue = document.getElementById("status-filter").value;
-                        const rows = document.querySelectorAll(".row-item");
+        function filterRows() {
+            const statusValue = document.getElementById("status-filter").value.toLowerCase();
+            const rows = document.querySelectorAll(".row-item");
 
-                        rows.forEach(row => {
-                            const rowStatus = row.dataset.status;
-                            const rowDateStr = row.dataset.date;
-                            const rowDate = new Date(rowDateStr);
+            rows.forEach(row => {
+                const rowStatus = row.dataset.status.toLowerCase();
+                const rowDateStr = row.dataset.date;
+                const rowDate = new Date(rowDateStr);
 
-                            const matchStatus = !statusValue || rowStatus === statusValue;
-                            const matchDate =
-                                (!selectedStart || !selectedEnd) ||
-                                (rowDate >= selectedStart && rowDate <= selectedEnd);
+                const matchStatus = !statusValue || rowStatus === statusValue;
+                const matchDate =
+                    (!selectedStart || !selectedEnd) ||
+                    (rowDate >= selectedStart && rowDate <= selectedEnd);
 
-                            if (matchStatus && matchDate) {
-                                row.style.display = "";
-                            } else {
-                                row.style.display = "none";
-                            }
-                        });
-                    }
-                </script>
+                if (matchStatus && matchDate) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+    </script>
 
 </body>
 
