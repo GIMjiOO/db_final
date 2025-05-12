@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <meta name="description" content="">
+    <meta name="author" content="Tooplate">
+
+    <title>Moso Interior - HTML CSS Template</title>
+
+    <!-- CSS FILES -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <!--<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>-->
+
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;300;400;600;700&display=swap" rel="stylesheet">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="css/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="css/owl.carousel.min.css" rel="stylesheet">
+
+    <link href="css/tooplate-moso-interior.css" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+
+    <!-- Bootstrap core CSS -->
+    <!--<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" href="assets/css/templatemo-scholar.css">
+    <link rel="stylesheet" href="assets/css/owl.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+
+
+</head>
+
+
+
+<body>
+
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a href="#top" class="logo">
+                            <h1>JUNO</h1>
+                        </a>
+                        <!-- ***** Logo End ***** -->
+
+                        <!-- ***** Search Start ***** -->
+                        <div class="search-input">
+                            <form id="search" action="/2-Search" method="GET">
+                                <input type="text" placeholder="Type Something" id="searchText" name="keyword" />
+                                <i class="fa fa-search"></i>
+                            </form>
+                        </div>
+
+                        <!-- ***** Search End ***** -->
+
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+                            <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
+                            <li><a href="/My_wishlist">Favorite</a></li>
+                            <li><a href="/Cart">Cart</a></li>
+                            <li><a href="/My_account_Profile">Account</a></li>
+                        </ul>
+
+                        <a class="menu-trigger">
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+    <main>
+
+        <section class="shop-section section-padding" id="section_3">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-12 col-12">
+                        <h2 class="mt-2 mb-4"><span class="tooplate-red">Categories</span></h2>
+                        <small class="section-small-title">
+                            <div class="category-inline">
+                                <span><i class="bi bi-bag-check"></i> Order Received</span> |
+                                <a href="/packing"><i class="bi bi-box-seam"></i> Packing</a> |
+                                <a href="/in-transit"><i class="bi bi-truck"></i> In Transit</a> |
+                                <a href="/delivered"><i class="bi bi-check2-circle"></i> Delivered</a>
+                              </div>
+                            </div>
+                        </small>
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <div class="section events" id="events">
+            <div class="container">
+                <div class="row">
+                    <% let total = 0; %>
+                        <% orderItems.forEach(item => { 
+                    let itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                %>
+                            <div class="col-lg-12 col-md-6 mb-4">
+                                <div class="item">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="image">
+                                                <img src="<%= item.image %>" alt="<%= item.name %>" class="img-fluid">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <ul>
+                                                <li>
+                                                    <span class="category">Store</span>
+                                                    <h4>
+                                                        <%= item.name %>
+                                                    </h4>
+                                                </li>
+                                                <li>
+                                                    <span>Date:</span>
+                                                    <h6>
+                                                        <%= item.date %>
+                                                    </h6>
+                                                </li>
+                                                <li>
+                                                    <span>Quantity:</span>
+                                                    <h6>
+                                                        <%= item.quantity %>
+                                                    </h6>
+                                                </li>
+                                                <li>
+                                                    <span>Subtotal:</span>
+                                                    <h6>$
+                                                        <%= itemTotal.toFixed(2) %>
+                                                    </h6>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% }) %>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="col-lg-12">
+                <p>Contact Us: <a href="mailto:Juno.Shop@gmail.com">Juno.Shop@gmail.com</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT FILES -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/click-scroll.js"></script>
+    <script src="js/jquery.backstretch.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/custom.js"></script>
+
+    <!-- Scripts -->
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/isotope.min.js"></script>
+    <script src="assets/js/owl-carousel.js"></script>
+    <script src="assets/js/counter.js"></script>
+    <script src="assets/js/custom.js"></script>
+
+
+</body>
+
+</html>
