@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <meta name="description" content="">
+    <meta name="author" content="Tooplate">
+
+    <title>Moso Interior - HTML CSS Template</title>
+
+    <!-- CSS FILES -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <!--<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>-->
+
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;300;400;600;700&display=swap" rel="stylesheet">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="css/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="css/owl.carousel.min.css" rel="stylesheet">
+
+    <link href="css/tooplate-moso-interior.css" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+
+    <!-- Bootstrap core CSS -->
+    <!--<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" href="assets/css/templatemo-scholar.css">
+    <link rel="stylesheet" href="assets/css/owl.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+
+
+</head>
+
+
+
+
+<body>
+
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a href="#top" class="logo">
+                            <h1>JUNO</h1>
+                        </a>
+                        <!-- ***** Logo End ***** -->
+
+                        <!-- ***** Search Start ***** -->
+                        <div class="search-input">
+                            <form id="search" action="/2-Search" method="GET">
+                                <input type="text" placeholder="Type Something" id="searchText" name="keyword" />
+                                <i class="fa fa-search"></i>
+                            </form>
+                        </div>
+
+                        <!-- ***** Search End ***** -->
+
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+                            <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
+                            <li><a href="/My_wishlist">Favorite</a></li>
+                            <li><a href="/Cart">Cart</a></li>
+                            <li><a href="/My_account_Profile">Account</a></li>
+                        </ul>
+
+                        <a class="menu-trigger">
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+    <main>
+        <section class="shop-section section-padding" id="section_3">
+            <div class="container">
+                <div class="row">
+
+                    <% products.forEach(product => { %>
+                        <div class="col-lg-4 col-12">
+                            <div class="shop-thumb">
+                                <div class="shop-image-wrap">
+                                    <a href="/3-product_detail/<%= product.id %>">
+                                        <!-- ลิงก์ไปยังหน้ารายละเอียดของสินค้า -->
+                                        <img src="<%= product.imagePath %>" class="shop-image img-fluid" alt="">
+                                    </a>
+                                    <div class="shop-icons-wrap">
+                                        <div class="shop-icons d-flex flex-column align-items-center">
+                                            <a href="#" class="shop-icon bi-heart" onclick="addToFavorite('<%= product.id %>', event)"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="shop-body">
+                                    <h4>
+                                        <%= product.name %>
+                                    </h4>
+                                    <div class="shop-detail-bar-wrap mb-0">
+                                        <div class="d-flex flex-wrap">
+                                            <span class="me-2">Price:</span>
+                                            <strong class="shop-pricing-text">$<%= product.price %></strong>
+                                        </div>
+                                        <div class="mt-2 d-flex align-items-center">
+                                            <% 
+                                            const rating = product.rating || 0;
+                                            const full = Math.floor(rating);
+                                            const half = rating % 1 >= 0.25 && rating % 1 < 0.75;
+                                            const empty = 5 - full - (half ? 1 : 0);
+                                            %>
+                                                <% for (let i = 0; i < full; i++) { %>
+                                                    <i class="bi-star-fill text-warning me-1"></i>
+                                                    <% } %>
+                                                        <% if (half) { %>
+                                                            <i class="bi-star-half text-warning me-1"></i>
+                                                            <% } %>
+                                                                <% for (let i = 0; i < empty; i++) { %>
+                                                                    <i class="bi-star text-warning me-1"></i>
+                                                                    <% } %>
+                                                                        <span class="text-dark ms-2"><%= rating.toFixed(1) %></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <% }); %>
+
+                </div>
+        </section>
+
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="col-lg-12">
+                <p>Contact Us: <a href="mailto:Juno.Shop@gmail.com">Juno.Shop@gmail.com</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT FILES -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/click-scroll.js"></script>
+    <script src="js/jquery.backstretch.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/custom.js"></script>
+
+    <!-- Scripts -->
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/isotope.min.js"></script>
+    <script src="assets/js/owl-carousel.js"></script>
+    <script src="assets/js/counter.js"></script>
+    <script src="assets/js/custom.js"></script>
+
+    <script>
+        function addToFavorite(productId, event) {
+            event.preventDefault(); // ป้องกันไม่ให้หน้าเลื่อนขึ้น
+
+            const heartIcon = event.target;
+
+            // ล็อกข้อมูลการคลิก
+            console.log('Product ID:', productId); // เช็คว่า productId ที่ถูกคลิกคืออะไร
+            console.log('Heart icon:', heartIcon); // เช็คองค์ประกอบของไอคอนที่ถูกคลิก
+
+            // ถ้ากดไปแล้ว (เป็น favorite แล้ว) ก็ไม่ต้องส่ง request ซ้ำ
+            if (heartIcon.classList.contains('favorited')) {
+                console.log('Already favorited, no action needed');
+                return;
+            }
+
+            fetch('/favorite', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        productId
+                    })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Successfully added to favorite'); // แจ้งว่าเพิ่มสำเร็จ
+                        heartIcon.classList.remove('bi-heart');
+                        heartIcon.classList.add('bi-heart-fill', 'favorited'); // เพิ่มทั้ง icon fill และสถานะ
+                    } else {
+                        console.log('Error adding to favorite');
+                        alert('Error adding to favorite');
+                    }
+                });
+        }
+    </script>
+
+
+</body>
+
+</html>

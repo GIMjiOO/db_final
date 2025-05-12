@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <meta name="description" content="">
+    <meta name="author" content="Tooplate">
+
+    <title>Moso Interior - HTML CSS Template</title>
+
+    <!-- CSS FILES -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <!--<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>-->
+
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;300;400;600;700&display=swap" rel="stylesheet">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="css/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="css/owl.carousel.min.css" rel="stylesheet">
+
+    <link href="css/tooplate-moso-interior.css" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+
+    <!-- Bootstrap core CSS -->
+    <!--<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" href="assets/css/templatemo-scholar.css">
+    <link rel="stylesheet" href="assets/css/owl.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+
+
+</head>
+
+
+
+<body>
+
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a href="#top" class="logo">
+                            <h1>JUNO</h1>
+                        </a>
+                        <!-- ***** Logo End ***** -->
+
+                        <!-- ***** Search Start ***** -->
+                        <div class="search-input">
+                            <form id="search" action="/2-Search" method="GET">
+                                <input type="text" placeholder="Type Something" id="searchText" name="keyword" />
+                                <i class="fa fa-search"></i>
+                            </form>
+                        </div>
+
+                        <!-- ***** Search End ***** -->
+
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+                            <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
+                            <li><a href="/My_wishlist">Favorite</a></li>
+                            <li><a href="/Cart">Cart</a></li>
+                            <li><a href="/My_account_Profile">Account</a></li>
+                        </ul>
+
+                        <a class="menu-trigger">
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+    <main>
+
+
+        <section class="contact-section" id="detail">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#f9f9f9" fill-opacity="1" d="M0,96L40,117.3C80,139,160,181,240,186.7C320,192,400,160,480,149.3C560,139,640,149,720,176C800,203,880,245,960,250.7C1040,256,1120,224,1200,229.3C1280,235,1360,277,1400,298.7L1440,320L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0,160,0,80,0,40,0L0,0Z"></path>
+            </svg>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-12">
+                        <div class="shop-thumb">
+                            <div class="shop-image-wrap">
+                                <a href="shop-detail.html">
+                                    <img id="product-image" class="shop-image img-fluid" alt="Product Image" src="<%= product.image %>">
+                                </a>
+                                <div class="shop-icons-wrap">
+                                    <div class="shop-icons d-flex flex-column align-items-center">
+                                        <a href="#" class="shop-icon bi-heart" onclick="addToFavorites()">❤️</a>
+                                        <a href="#" class="shop-icon bi-cart-plus" onclick="addToCart()">🛒</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-12 mt-5 mt-lg-0">
+                        <div class="shop-body">
+                            <h4 id="product-name">
+                                <%= product.name %>
+                            </h4>
+                            <div class="shop-detail-bar-wrap mb-0">
+                                <div class="d-flex flex-wrap">
+                                    <span class="me-2">Price:</span>
+                                    <strong id="product-price" class="shop-pricing-text">$<%= product.price %></strong>
+                                </div>
+                                <div class="mt-2">
+                                    <div id="star-rating" class="d-flex align-items-center mt-2">
+                                        <% 
+                                            const rating = product.rating;
+                                            const maxStars = 5;
+                                            const fullStars = Math.floor(rating);
+                                            const halfStar = rating % 1 >= 0.25 && rating % 1 < 0.75;
+                                            const emptyStars = maxStars - fullStars - (halfStar ? 1 : 0);
+        
+                                            for (let i = 0; i < fullStars; i++) {
+                                                %><i class="bi-star-fill text-warning me-1"></i>
+                                            <%
+                                            }
+        
+                                            if (halfStar) { 
+                                            %><i class="bi-star-half text-warning me-1"></i>
+                                                <%
+                                            }
+        
+                                            for (let i = 0; i < emptyStars; i++) { 
+                                            %><i class="bi-star text-warning me-1"></i>
+                                                    <%
+                                            }
+                                        %>
+                                    </div>
+                                    <p id="product-description">
+                                        <%= product.description %>
+                                    </p>
+                                    <div class="col-12">
+                                        <div class="d-flex align-items-center gap-3 justify-content-between">
+                                            <div class="input-group" style="max-width: 150px;">
+                                                <button class="btn btn-outline-secondary" type="button" onclick="decrement()">-</button>
+                                                <input type="text" id="quantity" class="form-control text-center" value="1" readonly>
+                                                <button class="btn btn-outline-secondary" type="button" onclick="increment()">+</button>
+                                            </div>
+
+                                            <button type="button" class="btn btn-primary" onclick="buyNow()">Buy now</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="reviews-section section-padding pb-0" id="review">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-12">
+                        <small class="section-small-title">Happy customers.</small>
+                        <h2 class="mt-2 mb-4">Reviews</h2>
+                        <div class="owl-carousel reviews-carousel" id="reviews-carousel">
+                            <!-- ข้อมูลรีวิวจะถูกแสดงที่นี่ -->
+                            <% reviews.forEach(review => { %>
+                                <div class="reviews-thumb">
+                                    <div class="reviews-body">
+                                        <h4>
+                                            <%= review.text %>
+                                        </h4>
+                                    </div>
+                                    <div class="reviews-bottom reviews-bottom-up d-flex align-items-center">
+                                        <div class="d-flex align-items-center justify-content-between flex-wrap w-100 ms-3">
+                                            <p class="text-white mb-0">
+                                                <strong><%= review.name %></strong>
+                                                <!-- แสดงชื่อผู้รีวิว -->
+                                            </p>
+                                            <div class="reviews-icons">
+                                                <%- generateStars(review.rating) %>
+                                                    <!-- เรียกใช้ฟังก์ชันในการแสดงดาว -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% }) %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <% 
+            // ฟังก์ชันสำหรับแสดงดาว
+            function generateStars(rating) {
+                const maxStars = 5;
+                const fullStars = Math.floor(rating);
+                const halfStar = rating % 1 >= 0.25 && rating % 1 < 0.75;
+                const emptyStars = maxStars - fullStars - (halfStar ? 1 : 0);
+        
+                let stars = '';
+        
+                for (let i = 0; i < fullStars; i++) {
+                    stars += '<i class="bi-star-fill text-warning me-1"></i>';
+                }
+        
+                if (halfStar) {
+                    stars += '<i class="bi-star-half text-warning me-1"></i>';
+                }
+        
+                for (let i = 0; i < emptyStars; i++) {
+                    stars += '<i class="bi-star text-warning me-1"></i>';
+                }
+        
+                return stars;
+            }
+        %>
+
+
+            <section class="shop-section section-padding" id="bestforyou">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-12 col-12">
+                            <h2 class="mt-2 mb-4"><span class="tooplate-red">Best For You</span></h2>
+                        </div>
+
+                        <% products.forEach(product => { %>
+                            <div class="col-lg-4 col-12">
+                                <div class="shop-thumb">
+                                    <div class="shop-image-wrap">
+                                        <a href="/3-product_detail/<%= product.id %>">
+                                            <img src="<%= product.image %>" class="shop-image img-fluid" alt="">
+                                        </a>
+                                        <div class="shop-icons-wrap">
+                                            <div class="shop-icons d-flex flex-column align-items-center">
+                                                <a href="#" class="shop-icon bi-heart" onclick="addToFavorite('<%= product.id %>', event)"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="shop-body">
+                                        <h4>
+                                            <%= product.name %>
+                                        </h4>
+                                        <div class="shop-detail-bar-wrap mb-0">
+                                            <div class="d-flex flex-wrap">
+                                                <span class="me-2">Price:</span>
+                                                <strong class="shop-pricing-text">$<%= product.price %></strong>
+                                            </div>
+                                            <div class="mt-2">
+                                                <div class="d-flex align-items-center mt-2">
+                                                    <% 
+                                                        const rating = product.rating;
+                                                        const fullStars = Math.floor(rating);
+                                                        const halfStar = rating % 1 >= 0.25 && rating % 1 < 0.75;
+                                                        const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+                                                    %>
+                                                        <% for(let i = 0; i < fullStars; i++) { %>
+                                                            <i class="bi-star-fill text-warning me-1"></i>
+                                                            <% } %>
+                                                                <% if(halfStar) { %>
+                                                                    <i class="bi-star-half text-warning me-1"></i>
+                                                                    <% } %>
+                                                                        <% for(let i = 0; i < emptyStars; i++) { %>
+                                                                            <i class="bi-star text-warning me-1"></i>
+                                                                            <% } %>
+                                                                                <span class="text-dark ms-2"><%= rating.toFixed(1) %></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% }); %>
+
+
+                                <div class="col-lg-12 col-12">
+                                    <p class="d-flex justify-content-center align-items-center mt-lg-5"><a href="/best-selling" class="custom-btn btn ms-3">View All</a></p>
+                                </div>
+
+                    </div>
+                </div>
+            </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="col-lg-12">
+                <p>Contact Us: <a href="mailto:Juno.Shop@gmail.com">Juno.Shop@gmail.com</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT FILES -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/click-scroll.js"></script>
+    <script src="js/jquery.backstretch.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/custom.js"></script>
+
+    <!-- Scripts -->
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/isotope.min.js"></script>
+    <script src="assets/js/owl-carousel.js"></script>
+    <script src="assets/js/counter.js"></script>
+    <script src="assets/js/custom.js"></script>
+
+    <script>
+        function addToFavorites() {
+            // ฟังก์ชันเพิ่มสินค้าในรายการโปรด
+            console.log("Product added to favorites");
+            alert("Added to favorites!");
+        }
+
+        function addToCart() {
+            // ฟังก์ชันเพิ่มสินค้าในตะกร้า
+            console.log("Product added to cart");
+            alert("Added to cart!");
+        }
+
+        function buyNow() {
+            // ฟังก์ชันเมื่อคลิก "Buy now"
+            const productName = '<%= product.name %>';
+            const price = '<%= product.price %>';
+            const quantity = document.getElementById('quantity').value;
+            const rating = '<%= product.rating %>';
+
+            console.log(`Buying now: ${productName}, Price: ${price}, Quantity: ${quantity}, Rating: ${rating}`);
+            window.location.href = `/checkout?product=${productName}&price=${price}&quantity=${quantity}&rating=${rating}`;
+        }
+
+
+        function increment() {
+            const input = document.getElementById("quantity");
+            let value = parseInt(input.value);
+            if (value < 99) {
+                input.value = value + 1;
+            }
+        }
+
+        function decrement() {
+            const input = document.getElementById("quantity");
+            let value = parseInt(input.value);
+            if (value > 1) {
+                input.value = value - 1;
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>
